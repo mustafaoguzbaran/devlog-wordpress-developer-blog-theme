@@ -2614,3 +2614,81 @@ function devlog_get_cv_download_url() {
     
     return add_query_arg('download_cv', '1', home_url('/'));
 }
+
+/**
+ * Calculate Reading Time
+ */
+function devlog_get_reading_time($content = null) {
+    if (!$content) {
+        global $post;
+        $content = $post ? $post->post_content : '';
+    }
+    
+    $word_count = str_word_count(strip_tags($content));
+    $reading_time = ceil($word_count / 200); // Average reading speed: 200 words per minute
+    
+    return max(1, $reading_time);
+}
+
+/**
+ * Generate Table of Contents from post content
+ */
+function devlog_generate_toc($content) {
+    // Match all headings (h1-h6)
+    $pattern = '/<h([1-6])([^>]*)>(.*?)<\/h[1-6]>/i';
+    preg_match_all($pattern, $content, $matches, PREG_SET_ORDER);
+    
+    if (empty($matches)) {
+        return '';
+    }
+    
+    $toc = '<ul class="toc-list">';
+    
+    foreach ($matches as $heading) {
+        $level = $heading[1];
+        $attributes = $heading[2];
+        $text = strip_tags($heading[3]);
+        
+        // Generate ID from heading text
+        $id = sanitize_title($text);
+        
+        // Add ID to the original heading if it doesn't have one
+        if (strpos($attributes, 'id=') === false) {
+            $content = str_replace($heading[0], '<h' . $level . ' id="' . $id . '"' . $attributes . '>' . $heading[3] . '</h' . $level . '>', $content);
+        } else {
+            // Extract existing ID
+            preg_match('/id="([^"]*)"/', $attributes, $id_match);
+            $id = $id_match[1] ?? $id;
+        }
+        
+        $toc .= '<li class="toc-item toc-item--h' . $level . '">';
+        $toc .= '<a href="#' . $id . '" class="toc-link">' . $text . '</a>';
+        $toc .= '</li>';
+    }
+    
+    $toc .= '</ul>';
+    
+    return array('toc' => $toc, 'content' => $content);
+}
+
+/**
+ * Get post excerpt with custom length
+ */
+function devlog_get_excerpt($post_id = null, $length = 150) {
+    if (!$post_id) {
+        global $post;
+        $post_id = $post->ID;
+    }
+    
+    $post_object = get_post($post_id);
+    
+    if ($post_object->post_excerpt) {
+        return $post_object->post_excerpt;
+    }
+    
+    $excerpt = wp_strip_all_tags($post_object->post_content);
+    $excerpt = substr($excerpt, 0, $length);
+    $excerpt = substr($excerpt, 0, strrpos($excerpt, ' ')) . '...';
+    
+    return $excerpt;
+}

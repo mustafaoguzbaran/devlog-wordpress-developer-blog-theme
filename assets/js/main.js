@@ -874,4 +874,249 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // ===== TABLE OF CONTENTS =====
+    class TableOfContents {
+        constructor() {
+            this.tocContainer = document.querySelector('.table-of-contents .toc-list');
+            this.headings = document.querySelectorAll('.article-body h1, .article-body h2, .article-body h3, .article-body h4');
+            this.init();
+        }
+
+        init() {
+            if (!this.tocContainer || this.headings.length === 0) return;
+            
+            this.generateTOC();
+            this.bindScrollEvents();
+        }
+
+        generateTOC() {
+            let tocHTML = '';
+            
+            this.headings.forEach((heading, index) => {
+                const level = heading.tagName.toLowerCase();
+                const text = heading.textContent;
+                const id = heading.id || `heading-${index}`;
+                
+                if (!heading.id) {
+                    heading.id = id;
+                }
+                
+                tocHTML += `<li class="toc-item toc-item--${level}">
+                    <a href="#${id}" class="toc-link">${text}</a>
+                </li>`;
+            });
+            
+            this.tocContainer.innerHTML = tocHTML;
+            
+            // Bind click events
+            this.tocContainer.querySelectorAll('.toc-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+                        const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        bindScrollEvents() {
+            let activeId = null;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        activeId = entry.target.id;
+                        this.updateActiveLink(activeId);
+                    }
+                });
+            }, {
+                rootMargin: '-20% 0px -70% 0px'
+            });
+
+            this.headings.forEach(heading => {
+                observer.observe(heading);
+            });
+        }
+
+        updateActiveLink(activeId) {
+            this.tocContainer.querySelectorAll('.toc-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${activeId}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    }
+
+    // ===== SHARE BUTTONS =====
+    class ShareButtons {
+        constructor() {
+            this.shareButtons = document.querySelectorAll('.share-btn');
+            this.init();
+        }
+
+        init() {
+            this.bindEvents();
+        }
+
+        bindEvents() {
+            this.shareButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const platform = button.dataset.platform;
+                    
+                    if (platform === 'copy') {
+                        e.preventDefault();
+                        this.copyToClipboard();
+                    }
+                });
+            });
+        }
+
+        copyToClipboard() {
+            const url = window.location.href;
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(url).then(() => {
+                    this.showCopySuccess();
+                });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    this.showCopySuccess();
+                } catch (err) {
+                    console.error('Copy failed:', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        showCopySuccess() {
+            const copyBtn = document.querySelector('.share-btn--copy');
+            if (copyBtn) {
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Kopyalandı!';
+                copyBtn.style.background = '#27ae60';
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.style.background = '';
+                }, 2000);
+            }
+        }
+    }
+
+    // ===== READING PROGRESS =====
+    class ReadingProgress {
+        constructor() {
+            this.progressBar = document.createElement('div');
+            this.init();
+        }
+
+        init() {
+            if (!document.querySelector('.article-body')) return;
+            
+            this.createProgressBar();
+            this.bindScrollEvents();
+        }
+
+        createProgressBar() {
+            this.progressBar.className = 'reading-progress';
+            this.progressBar.innerHTML = '<div class="reading-progress__bar"></div>';
+            
+            const styles = `
+                .reading-progress {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 3px;
+                    background: rgba(255, 255, 255, 0.1);
+                    z-index: 1000;
+                }
+                .reading-progress__bar {
+                    height: 100%;
+                    background: linear-gradient(90deg, #e74c3c, #e67e22);
+                    width: 0%;
+                    transition: width 0.3s ease;
+                }
+            `;
+            
+            const styleSheet = document.createElement('style');
+            styleSheet.textContent = styles;
+            document.head.appendChild(styleSheet);
+            
+            document.body.appendChild(this.progressBar);
+        }
+
+        bindScrollEvents() {
+            const articleBody = document.querySelector('.article-body');
+            if (!articleBody) return;
+            
+            window.addEventListener('scroll', () => {
+                const articleStart = articleBody.offsetTop;
+                const articleHeight = articleBody.offsetHeight;
+                const windowHeight = window.innerHeight;
+                const scrollPosition = window.scrollY;
+                
+                const progress = Math.max(0, Math.min(100, 
+                    ((scrollPosition - articleStart + windowHeight) / articleHeight) * 100
+                ));
+                
+                const progressBar = this.progressBar.querySelector('.reading-progress__bar');
+                progressBar.style.width = `${progress}%`;
+            });
+        }
+    }
+
+    // ===== INITIALIZE ALL COMPONENTS =====
+    
+    // Initialize existing components
+    new MobileNavigation();
+    new SmoothScroll();
+    new HeaderScroll();
+    new ThemeToggle();
+    new ActiveSection();
+    new ScrollReveal();
+    new ContactForm();
+    new SearchFeature();
+    new LazyLoading();
+    new PerformanceOptimization();
+    
+    // Initialize new single post components
+    if (document.querySelector('.article-body')) {
+        new TableOfContents();
+        new ShareButtons();
+        new ReadingProgress();
+    }
 });
+
+// ===== ADDITIONAL CSS FOR ACTIVE TOC LINKS =====
+const tocStyles = `
+    .toc-link.active {
+        color: #e74c3c;
+        font-weight: 600;
+        border-left: 2px solid #e74c3c;
+        padding-left: 8px;
+        margin-left: -10px;
+    }
+`;
+
+const tocStyleSheet = document.createElement('style');
+tocStyleSheet.textContent = tocStyles;
+document.head.appendChild(tocStyleSheet);
