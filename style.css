@@ -103,6 +103,70 @@ body.light-theme {
     --shadow-color: var(--shadow-color-light);
 }
 
+/* Light Theme Navigation Overrides */
+body.light-theme .nav__link {
+    color: #333333;
+}
+
+body.light-theme .nav__link:hover,
+body.light-theme .nav__link.active {
+    color: var(--primary-color);
+}
+
+body.light-theme .nav__toggle {
+    color: #333333;
+}
+
+body.light-theme .nav__toggle:hover {
+    color: var(--primary-color);
+}
+
+body.light-theme .nav__close {
+    color: #333333;
+}
+
+body.light-theme .nav__close:hover {
+    color: var(--primary-color);
+}
+
+body.light-theme .theme-toggle {
+    color: #333333;
+}
+
+body.light-theme .theme-toggle:hover {
+    color: var(--primary-color);
+}
+
+body.light-theme .header {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+body.light-theme .header.scroll-header {
+    background: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile menu overrides for light theme */
+@media screen and (max-width: 768px) {
+    body.light-theme .nav__menu {
+        background-color: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+    }
+    
+    body.light-theme .nav__link {
+        color: #333333 !important; /* Override mobile white */
+    }
+    
+    body.light-theme .nav__close {
+        color: #333333 !important; /* Override mobile white */
+    }
+    
+    body.light-theme .nav__toggle {
+        color: #333333 !important; /* Override mobile white */
+    }
+}
+
 /* ===== Utility Classes ===== */
 .container {
     max-width: var(--container-max-width);
@@ -238,7 +302,7 @@ body.light-theme {
 .nav__link {
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-medium);
-    color: var(--text-color);
+    color: #ffffff; /* Default white for mobile menu */
     text-decoration: none;
     transition: var(--transition-fast);
     position: relative;
@@ -270,7 +334,7 @@ body.light-theme {
     top: var(--spacing-xl);
     right: var(--spacing-xl);
     font-size: var(--font-size-2xl);
-    color: var(--text-color);
+    color: #ffffff; /* Always white in mobile menu */
     cursor: pointer;
     transition: var(--transition-fast);
 }
@@ -308,7 +372,7 @@ body.light-theme {
 
 .nav__toggle {
     font-size: var(--font-size-xl);
-    color: var(--text-color);
+    color: #ffffff; /* Always white for mobile toggle */
     cursor: pointer;
     transition: var(--transition-fast);
 }
@@ -335,6 +399,7 @@ body.light-theme {
 
     .nav__link {
         font-size: var(--font-size-base);
+        color: var(--text-color); /* Desktop uses theme color */
     }
 
     .nav__close,
