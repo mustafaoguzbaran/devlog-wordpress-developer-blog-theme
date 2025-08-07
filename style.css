@@ -28,6 +28,21 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Remove focus outlines globally */
+*:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 /* ===== CSS Variables ===== */
 :root {
     /* Colors */
@@ -306,6 +321,13 @@ body.light-theme .header.scroll-header {
     text-decoration: none;
     transition: var(--transition-fast);
     position: relative;
+    outline: none; /* Remove focus outline */
+    border: none; /* Remove any border */
+}
+
+.nav__link:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .nav__link:hover,
@@ -337,6 +359,14 @@ body.light-theme .header.scroll-header {
     color: #ffffff; /* Always white in mobile menu */
     cursor: pointer;
     transition: var(--transition-fast);
+    outline: none; /* Remove focus outline */
+    border: none; /* Remove any border */
+    background: transparent;
+}
+
+.nav__close:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .nav__close:hover {
@@ -362,6 +392,12 @@ body.light-theme .header.scroll-header {
     justify-content: center;
     cursor: pointer;
     transition: var(--transition-fast);
+    outline: none; /* Remove focus outline */
+}
+
+.theme-toggle:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .theme-toggle:hover {
@@ -375,6 +411,14 @@ body.light-theme .header.scroll-header {
     color: #ffffff; /* Always white for mobile toggle */
     cursor: pointer;
     transition: var(--transition-fast);
+    outline: none; /* Remove focus outline */
+    border: none; /* Remove any border */
+    background: transparent;
+}
+
+.nav__toggle:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .nav__toggle:hover {
