@@ -1,21 +1,20 @@
-// ===== Modern JavaScript for DevLog WordPress Theme =====
-
-'use strict';
-
-// Wait for DOM to be fully loaded
+/*=============== ENHANCED DEVLOG THEME SCRIPT ===============*/
 document.addEventListener('DOMContentLoaded', function() {
-    // ===== DOM Elements =====
+    console.log('DevLog Theme JavaScript başlatıldı');
+    
+    // ===== Global Variables =====
+    const header = document.getElementById('header');
     const navMenu = document.getElementById('nav-menu');
     const navToggle = document.getElementById('nav-toggle');
     const navClose = document.getElementById('nav-close');
-    const themeToggle = document.getElementById('theme-toggle');
     const navLinks = document.querySelectorAll('.nav__link');
-    const sections = document.querySelectorAll('.section');
-    const header = document.querySelector('.header');
+    const sections = document.querySelectorAll('section[id]');
+    const themeToggle = document.getElementById('theme-toggle');
 
     // ===== Mobile Navigation =====
     class MobileNavigation {
         constructor() {
+            console.log('MobileNavigation başlatıldı');
             this.init();
         }
 
@@ -26,19 +25,23 @@ document.addEventListener('DOMContentLoaded', function() {
         bindEvents() {
             // Show menu
             if (navToggle) {
-                navToggle.addEventListener('click', () => {
+                navToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('Nav toggle clicked');
                     this.showMenu();
                 });
             }
 
             // Hide menu
             if (navClose) {
-                navClose.addEventListener('click', () => {
+                navClose.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('Nav close clicked');
                     this.hideMenu();
                 });
             }
 
-            // Hide menu when clicking on nav links
+            // Hide menu when clicking nav links
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     this.hideMenu();
@@ -64,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (navMenu) {
                 navMenu.classList.add('show-menu');
                 document.body.style.overflow = 'hidden';
+                console.log('Menu gösterildi');
             }
         }
 
@@ -71,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (navMenu) {
                 navMenu.classList.remove('show-menu');
                 document.body.style.overflow = 'auto';
+                console.log('Menu gizlendi');
             }
         }
     }
@@ -79,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
     class ThemeSwitcher {
         constructor() {
             this.theme = localStorage.getItem('devlog_theme') || 'dark';
+            console.log('ThemeSwitcher başlatıldı, mevcut tema:', this.theme);
             this.init();
         }
 
@@ -89,7 +95,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         bindEvents() {
             if (themeToggle) {
-                themeToggle.addEventListener('click', () => {
+                themeToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('Theme toggle clicked');
                     this.toggleTheme();
                 });
             }
@@ -99,6 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.theme = this.theme === 'dark' ? 'light' : 'dark';
             this.setTheme(this.theme);
             localStorage.setItem('devlog_theme', this.theme);
+            console.log('Tema değiştirildi:', this.theme);
         }
 
         setTheme(theme) {
@@ -124,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== Smooth Scrolling =====
     class SmoothScroll {
         constructor() {
+            console.log('SmoothScroll başlatıldı');
             this.init();
         }
 
@@ -141,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const targetElement = document.querySelector(targetId);
                     
                     if (targetElement) {
+                        console.log('Smooth scroll to:', targetId);
                         this.scrollToElement(targetElement);
                     }
                 }
@@ -161,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== Active Navigation Link =====
     class ActiveNavigation {
         constructor() {
+            console.log('ActiveNavigation başlatıldı');
             this.init();
         }
 
@@ -196,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== Header Scroll Effect =====
     class HeaderScroll {
         constructor() {
+            console.log('HeaderScroll başlatıldı');
             this.init();
         }
 
@@ -222,44 +235,343 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ===== Skills Animation =====
+    // ===== Back to Top Button =====
+    class BackToTop {
+        constructor() {
+            console.log('BackToTop başlatıldı');
+            this.createButton();
+            this.init();
+        }
+
+        createButton() {
+            // Create back to top button if it doesn't exist
+            let backToTopBtn = document.getElementById('scroll-top');
+            if (!backToTopBtn) {
+                backToTopBtn = document.createElement('button');
+                backToTopBtn.id = 'scroll-top';
+                backToTopBtn.className = 'back-to-top';
+                backToTopBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
+                backToTopBtn.setAttribute('aria-label', 'Yukarı Çık');
+                backToTopBtn.title = 'Yukarı Çık';
+                document.body.appendChild(backToTopBtn);
+                console.log('Scroll-to-top butonu oluşturuldu');
+            }
+            this.button = backToTopBtn;
+        }
+
+        init() {
+            this.bindEvents();
+        }
+
+        bindEvents() {
+            // Show/hide button based on scroll position
+            window.addEventListener('scroll', () => {
+                this.toggleVisibility();
+            });
+
+            // Handle click
+            this.button.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Scroll to top clicked');
+                this.scrollToTop();
+            });
+        }
+
+        toggleVisibility() {
+            const scrollY = window.pageYOffset;
+            
+            if (scrollY >= 300) {
+                this.button.classList.add('show');
+            } else {
+                this.button.classList.remove('show');
+            }
+        }
+
+        scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    // ===== Enhanced Skills Animation =====
     class SkillsAnimation {
         constructor() {
+            this.animatedSkills = new Set();
+            console.log('SkillsAnimation başlatıldı');
             this.init();
         }
 
         init() {
             this.createObserver();
+            this.setupHoverEffects();
         }
 
         createObserver() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        this.animateSkills(entry.target);
-                        observer.unobserve(entry.target);
+                    if (entry.isIntersecting && !this.animatedSkills.has(entry.target)) {
+                        console.log('Skills bölümü görünür, animasyon başlatılıyor');
+                        this.animateSkillsSection(entry.target);
+                        this.animatedSkills.add(entry.target);
                     }
                 });
-            }, { threshold: 0.5 });
+            }, { 
+                threshold: 0.3,
+                rootMargin: '0px 0px -50px 0px'
+            });
 
             const skillsSection = document.getElementById('skills');
             if (skillsSection) {
                 observer.observe(skillsSection);
+                console.log('Skills section observer eklendi');
             }
         }
 
-        animateSkills(skillsSection) {
-            const skillBars = skillsSection.querySelectorAll('.skill__progress');
+        animateSkillsSection(skillsSection) {
+            // Animate categories with stagger
+            const categories = skillsSection.querySelectorAll('.skills__category');
+            console.log('Animasyon başlatıldı, kategori sayısı:', categories.length);
             
-            skillBars.forEach((bar, index) => {
+            categories.forEach((category, categoryIndex) => {
                 setTimeout(() => {
-                    const width = bar.style.width;
-                    bar.style.width = '0%';
+                    category.style.opacity = '0';
+                    category.style.transform = 'translateY(30px)';
+                    category.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
                     
                     setTimeout(() => {
-                        bar.style.width = width;
+                        category.style.opacity = '1';
+                        category.style.transform = 'translateY(0)';
+                        
+                        // Animate skill bars in this category
+                        this.animateSkillBars(category, categoryIndex);
                     }, 100);
-                }, index * 200);
+                }, categoryIndex * 200);
+            });
+
+            // Animate stats if present
+            setTimeout(() => {
+                this.animateStats(skillsSection);
+            }, categories.length * 200 + 500);
+        }
+
+        animateSkillBars(category, categoryDelay = 0) {
+            const skillBars = category.querySelectorAll('.skill__progress');
+            console.log('Skill bar animasyonu başlatılıyor, bar sayısı:', skillBars.length);
+            
+            skillBars.forEach((bar, index) => {
+                const percentage = bar.getAttribute('data-percentage') || bar.dataset.percentage || '50';
+                const skillName = bar.dataset.skill || 'Skill';
+                
+                console.log(`${skillName}: ${percentage}% animasyon başlatılıyor`);
+                
+                // Reset width
+                bar.style.width = '0%';
+                bar.style.transition = 'none';
+                
+                setTimeout(() => {
+                    bar.style.transition = 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                    bar.style.width = percentage + '%';
+                    
+                    // Add counter animation for percentage
+                    this.animatePercentageCounter(bar, parseInt(percentage), skillName);
+                    
+                    // Add pulse effect when animation completes
+                    setTimeout(() => {
+                        bar.style.boxShadow = '0 0 20px rgba(231, 76, 60, 0.6)';
+                        setTimeout(() => {
+                            bar.style.boxShadow = '0 2px 4px rgba(231, 76, 60, 0.3)';
+                        }, 300);
+                    }, 1500);
+                    
+                }, (index * 150) + (categoryDelay * 100));
+            });
+        }
+
+        animatePercentageCounter(bar, targetPercentage, skillName) {
+            const skillItem = bar.closest('.skill__item');
+            const percentageElement = skillItem?.querySelector('.skill__percentage');
+            
+            if (!percentageElement) return;
+            
+            let currentPercentage = 0;
+            const increment = targetPercentage / 60; // 60 frames for smooth animation
+            const duration = 1500; // 1.5 seconds
+            const frameDuration = duration / 60;
+            
+            const counter = setInterval(() => {
+                currentPercentage += increment;
+                
+                if (currentPercentage >= targetPercentage) {
+                    currentPercentage = targetPercentage;
+                    clearInterval(counter);
+                    
+                    // Add completion effect
+                    percentageElement.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        percentageElement.style.transform = 'scale(1)';
+                    }, 200);
+                }
+                
+                percentageElement.textContent = Math.round(currentPercentage) + '%';
+            }, frameDuration);
+        }
+
+        animateStats(skillsSection) {
+            const statsSection = skillsSection.querySelector('.skills__stats');
+            if (!statsSection) return;
+            
+            const statItems = statsSection.querySelectorAll('.skill__stat');
+            console.log('Stats animasyonu başlatılıyor, stat sayısı:', statItems.length);
+            
+            statItems.forEach((stat, index) => {
+                setTimeout(() => {
+                    stat.style.opacity = '0';
+                    stat.style.transform = 'scale(0.8) translateY(20px)';
+                    stat.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                    
+                    setTimeout(() => {
+                        stat.style.opacity = '1';
+                        stat.style.transform = 'scale(1) translateY(0)';
+                        
+                        // Animate numbers in stats
+                        this.animateStatNumber(stat);
+                    }, 50);
+                }, index * 100);
+            });
+        }
+
+        animateStatNumber(statElement) {
+            const numberElement = statElement.querySelector('.skill__stat-number');
+            if (!numberElement) return;
+            
+            const text = numberElement.textContent;
+            const number = parseInt(text.replace(/\D/g, ''));
+            
+            if (isNaN(number)) return;
+            
+            let currentNumber = 0;
+            const increment = number / 30;
+            const suffix = text.replace(/\d/g, '');
+            
+            const counter = setInterval(() => {
+                currentNumber += increment;
+                
+                if (currentNumber >= number) {
+                    currentNumber = number;
+                    clearInterval(counter);
+                }
+                
+                numberElement.textContent = Math.round(currentNumber) + suffix;
+            }, 50);
+        }
+
+        setupHoverEffects() {
+            // Enhanced hover effects for skill items
+            document.addEventListener('mouseover', (e) => {
+                const skillItem = e.target.closest('.skill__item');
+                if (skillItem) {
+                    this.highlightSkill(skillItem);
+                }
+            });
+
+            document.addEventListener('mouseout', (e) => {
+                const skillItem = e.target.closest('.skill__item');
+                if (skillItem) {
+                    this.removeHighlight(skillItem);
+                }
+            });
+
+            // Category hover effects
+            document.addEventListener('mouseover', (e) => {
+                const category = e.target.closest('.skills__category');
+                if (category) {
+                    this.highlightCategory(category);
+                }
+            });
+
+            document.addEventListener('mouseout', (e) => {
+                const category = e.target.closest('.skills__category');
+                if (category) {
+                    this.removeHighlightCategory(category);
+                }
+            });
+        }
+
+        highlightSkill(skillItem) {
+            const progressBar = skillItem.querySelector('.skill__progress');
+            const percentage = skillItem.querySelector('.skill__percentage');
+            
+            if (progressBar) {
+                progressBar.style.filter = 'brightness(1.2) saturate(1.3)';
+                progressBar.style.transform = 'scaleY(1.2)';
+            }
+            
+            if (percentage) {
+                percentage.style.transform = 'scale(1.1)';
+                percentage.style.background = 'var(--primary-color)';
+                percentage.style.color = 'white';
+            }
+        }
+
+        removeHighlight(skillItem) {
+            const progressBar = skillItem.querySelector('.skill__progress');
+            const percentage = skillItem.querySelector('.skill__percentage');
+            
+            if (progressBar) {
+                progressBar.style.filter = '';
+                progressBar.style.transform = '';
+            }
+            
+            if (percentage) {
+                percentage.style.transform = '';
+                percentage.style.background = '';
+                percentage.style.color = '';
+            }
+        }
+
+        highlightCategory(category) {
+            const icon = category.querySelector('.skills__category-icon');
+            if (icon) {
+                icon.style.transform = 'scale(1.1) rotate(5deg)';
+                icon.style.boxShadow = '0 10px 25px rgba(231, 76, 60, 0.5)';
+            }
+        }
+
+        removeHighlightCategory(category) {
+            const icon = category.querySelector('.skills__category-icon');
+            if (icon) {
+                icon.style.transform = '';
+                icon.style.boxShadow = '';
+            }
+        }
+
+        // Method to manually trigger animation (useful for dynamic content)
+        triggerAnimation(element) {
+            if (element && !this.animatedSkills.has(element)) {
+                this.animateSkillsSection(element);
+                this.animatedSkills.add(element);
+            }
+        }
+
+        // Reset animations (useful for SPA-like behavior)
+        resetAnimations() {
+            this.animatedSkills.clear();
+            
+            // Reset all skill bars
+            document.querySelectorAll('.skill__progress').forEach(bar => {
+                bar.style.width = '0%';
+                bar.style.transition = 'none';
+            });
+            
+            // Reset all percentages
+            document.querySelectorAll('.skill__percentage').forEach(percentage => {
+                const skillItem = percentage.closest('.skill__item');
+                if (skillItem) {
+                    const originalPercentage = skillItem.dataset.percentage || '0';
+                    percentage.textContent = '0%';
+                }
             });
         }
     }
@@ -268,6 +580,7 @@ document.addEventListener('DOMContentLoaded', function() {
     class ContactForm {
         constructor() {
             this.form = document.querySelector('.contact__form');
+            console.log('ContactForm başlatıldı');
             this.init();
         }
 
@@ -339,6 +652,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
             };
+            console.log('ScrollAnimations başlatıldı');
             this.init();
         }
 
@@ -352,6 +666,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('animate');
+                        console.log('Element animasyona eklendi:', entry.target.className);
                         this.observer.unobserve(entry.target);
                     }
                 });
@@ -371,75 +686,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 .contact__form
             `);
 
+            console.log('Animasyon için izlenecek element sayısı:', elementsToAnimate.length);
             elementsToAnimate.forEach(element => {
                 this.observer.observe(element);
             });
         }
     }
 
-    // ===== Back to Top Button =====
-    class BackToTop {
-        constructor() {
-            this.init();
-        }
-
-        init() {
-            this.createButton();
-            this.bindEvents();
-        }
-
-        createButton() {
-            const button = document.createElement('button');
-            button.className = 'back-to-top';
-            button.innerHTML = '<i class="fas fa-arrow-up"></i>';
-            button.setAttribute('aria-label', 'Sayfa başına dön');
-            
-            document.body.appendChild(button);
-            this.button = button;
-        }
-
-        bindEvents() {
-            window.addEventListener('scroll', () => {
-                this.toggleVisibility();
-            });
-            
-            this.button.addEventListener('click', () => {
-                this.scrollToTop();
-            });
-        }
-
-        toggleVisibility() {
-            const scrollY = window.pageYOffset;
-            
-            if (scrollY > 500) {
-                this.button.classList.add('show');
-            } else {
-                this.button.classList.remove('show');
-            }
-        }
-
-        scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-    }
-
     // ===== Initialize Components =====
     function initializeComponents() {
+        console.log('Tüm bileşenler başlatılıyor...');
+        
         new MobileNavigation();
         new ThemeSwitcher();
         new SmoothScroll();
         new ActiveNavigation();
         new HeaderScroll();
-        new ScrollAnimations();
+        new BackToTop();
         new SkillsAnimation();
         new ContactForm();
-        new BackToTop();
+        new ScrollAnimations();
         
         // Add CSS for effects
         addDynamicStyles();
+        
+        console.log('Tüm bileşenler başarıyla başlatıldı!');
     }
 
     // ===== Add Dynamic Styles =====
@@ -536,6 +807,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 transition: all 0.3s ease;
                 z-index: 1000;
                 box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             
             .back-to-top.show {
@@ -547,6 +821,10 @@ document.addEventListener('DOMContentLoaded', function() {
             .back-to-top:hover {
                 transform: translateY(-2px);
                 box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+            }
+            
+            .back-to-top i {
+                font-size: 1.2rem;
             }
             
             @keyframes slideInDown {
@@ -570,6 +848,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         `;
         document.head.appendChild(style);
+        console.log('Dinamik CSS stilleri eklendi');
     }
 
     // Initialize all components

@@ -332,167 +332,108 @@ get_header(); ?>
     <section class="skills section" id="skills">
         <div class="container">
             <div class="section__header">
-                <span class="section__subtitle">Teknik Bilgiler</span>
-                <h2 class="section__title">Yeteneklerim</h2>
+                <span class="section__subtitle"><?php echo get_theme_mod('skills_subtitle', 'Teknik Bilgiler'); ?></span>
+                <h2 class="section__title"><?php echo get_theme_mod('skills_title', 'Yeteneklerim'); ?></h2>
             </div>
             
             <div class="skills__container grid">
-                <div class="skills__category">
+                <?php 
+                $grouped_skills = devlog_get_skills_grouped();
+                
+                if (!empty($grouped_skills)) :
+                    foreach ($grouped_skills as $category_key => $category_info) :
+                        $category_data = $category_info['category_data'];
+                        $skills = $category_info['skills'];
+                        
+                        // Count skills in this category
+                        $skill_count = count($skills);
+                ?>
+                <div class="skills__category" data-category="<?php echo esc_attr($category_key); ?>">
                     <div class="skills__category-header">
-                        <i class="fas fa-server"></i>
-                        <h3>Backend Technologies</h3>
+                        <div class="skills__category-icon">
+                            <i class="<?php echo esc_attr($category_data['icon']); ?>"></i>
+                        </div>
+                        <div class="skills__category-info">
+                            <h3><?php echo esc_html($category_data['name']); ?></h3>
+                            <span class="skills__category-count"><?php echo $skill_count; ?> teknoloji</span>
+                        </div>
                     </div>
                     
                     <div class="skills__list">
-                        <div class="skill__item">
+                        <?php foreach ($skills as $skill) :
+                            $percentage = get_post_meta($skill->ID, '_devlog_skill_percentage', true);
+                            $percentage = $percentage ?: 50; // Default 50% if not set
+                            $skill_icon = get_post_meta($skill->ID, '_devlog_skill_icon', true);
+                        ?>
+                        <div class="skill__item" data-percentage="<?php echo esc_attr($percentage); ?>">
                             <div class="skill__header">
-                                <span class="skill__name">Node.js</span>
-                                <span class="skill__percentage">90%</span>
+                                <div class="skill__name-wrapper">
+                                    <?php if ($skill_icon && $skill_icon !== $category_data['icon']) : ?>
+                                        <i class="<?php echo esc_attr($skill_icon); ?> skill__icon"></i>
+                                    <?php endif; ?>
+                                    <span class="skill__name"><?php echo esc_html($skill->post_title); ?></span>
+                                </div>
+                                <span class="skill__percentage"><?php echo esc_html($percentage); ?>%</span>
                             </div>
                             <div class="skill__bar">
-                                <div class="skill__progress" style="width: 90%"></div>
+                                <div class="skill__progress" 
+                                     style="width: 0%" 
+                                     data-percentage="<?php echo esc_attr($percentage); ?>"
+                                     data-skill="<?php echo esc_attr($skill->post_title); ?>">
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="skill__item">
-                            <div class="skill__header">
-                                <span class="skill__name">Python</span>
-                                <span class="skill__percentage">85%</span>
-                            </div>
-                            <div class="skill__bar">
-                                <div class="skill__progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill__item">
-                            <div class="skill__header">
-                                <span class="skill__name">PHP</span>
-                                <span class="skill__percentage">80%</span>
-                            </div>
-                            <div class="skill__bar">
-                                <div class="skill__progress" style="width: 80%"></div>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-                
-                <div class="skills__category">
-                    <div class="skills__category-header">
-                        <i class="fas fa-database"></i>
-                        <h3>Databases</h3>
-                    </div>
-                    
-                    <div class="skills__list">
-                        <div class="skill__item">
-                            <div class="skill__header">
-                                <span class="skill__name">MongoDB</span>
-                                <span class="skill__percentage">88%</span>
-                            </div>
-                            <div class="skill__bar">
-                                <div class="skill__progress" style="width: 88%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill__item">
-                            <div class="skill__header">
-                                <span class="skill__name">PostgreSQL</span>
-                                <span class="skill__percentage">85%</span>
-                            </div>
-                            <div class="skill__bar">
-                                <div class="skill__progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill__item">
-                            <div class="skill__header">
-                                <span class="skill__name">Redis</span>
-                                <span class="skill__percentage">75%</span>
-                            </div>
-                            <div class="skill__bar">
-                                <div class="skill__progress" style="width: 75%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="skills__category">
-                    <div class="skills__category-header">
-                        <i class="fas fa-cloud"></i>
-                        <h3>DevOps & Cloud</h3>
-                    </div>
-                    
-                    <div class="skills__list">
-                        <div class="skill__item">
-                            <div class="skill__header">
-                                <span class="skill__name">Docker</span>
-                                <span class="skill__percentage">80%</span>
-                            </div>
-                            <div class="skill__bar">
-                                <div class="skill__progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill__item">
-                            <div class="skill__header">
-                                <span class="skill__name">AWS</span>
-                                <span class="skill__percentage">75%</span>
-                            </div>
-                            <div class="skill__bar">
-                                <div class="skill__progress" style="width: 75%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill__item">
-                            <div class="skill__header">
-                                <span class="skill__name">CI/CD</span>
-                                <span class="skill__percentage">70%</span>
-                            </div>
-                            <div class="skill__bar">
-                                <div class="skill__progress" style="width: 70%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="skills__category">
-                    <div class="skills__category-header">
+                <?php 
+                    endforeach;
+                else : 
+                ?>
+                <!-- Fallback Content - Eğer hiç skill yoksa -->
+                <div class="skills__empty-state">
+                    <div class="skills__empty-icon">
                         <i class="fas fa-tools"></i>
-                        <h3>Tools & Frameworks</h3>
                     </div>
-                    
-                    <div class="skills__list">
-                        <div class="skill__item">
-                            <div class="skill__header">
-                                <span class="skill__name">Express.js</span>
-                                <span class="skill__percentage">90%</span>
-                            </div>
-                            <div class="skill__bar">
-                                <div class="skill__progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill__item">
-                            <div class="skill__header">
-                                <span class="skill__name">Django</span>
-                                <span class="skill__percentage">85%</span>
-                            </div>
-                            <div class="skill__bar">
-                                <div class="skill__progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill__item">
-                            <div class="skill__header">
-                                <span class="skill__name">Laravel</span>
-                                <span class="skill__percentage">80%</span>
-                            </div>
-                            <div class="skill__bar">
-                                <div class="skill__progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                    </div>
+                    <h3>Henüz skill eklenmemiş</h3>
+                    <p>WordPress admin panelinden skill ekleyebilirsiniz.</p>
+                    <a href="<?php echo admin_url('edit.php?post_type=skills'); ?>" class="btn btn--primary">
+                        Skill Ekle
+                    </a>
                 </div>
+                <?php endif; ?>
             </div>
+            
+            <?php if (!empty($grouped_skills)) : ?>
+            <!-- Skills Quick Stats -->
+            <div class="skills__stats">
+                <?php 
+                $stats = devlog_get_skills_statistics();
+                if ($stats['total_skills'] > 0) :
+                ?>
+                <div class="skills__stats-grid">
+                    <div class="skill__stat">
+                        <span class="skill__stat-number"><?php echo $stats['total_skills']; ?></span>
+                        <span class="skill__stat-label">Toplam Teknoloji</span>
+                    </div>
+                    <div class="skill__stat">
+                        <span class="skill__stat-number"><?php echo count($stats['categories']); ?></span>
+                        <span class="skill__stat-label">Kategori</span>
+                    </div>
+                    <div class="skill__stat">
+                        <span class="skill__stat-number"><?php echo $stats['average_percentage']; ?>%</span>
+                        <span class="skill__stat-label">Ortalama Seviye</span>
+                    </div>
+                    <?php if ($stats['highest_skill']) : ?>
+                    <div class="skill__stat skill__stat--highlight">
+                        <span class="skill__stat-number"><?php echo esc_html($stats['highest_skill']['name']); ?></span>
+                        <span class="skill__stat-label">En Güçlü Skill (<?php echo $stats['highest_skill']['percentage']; ?>%)</span>
+                    </div>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
+            </div>
+            <?php endif; ?>
         </div>
     </section>
 

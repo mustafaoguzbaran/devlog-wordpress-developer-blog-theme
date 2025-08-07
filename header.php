@@ -18,7 +18,7 @@
 </head>
 <body <?php body_class('dark-theme'); ?>>
     <!-- Header & Navigation -->
-    <header class="header">
+    <header class="header" id="header">
         <nav class="nav container">
             <div class="nav__brand">
                 <?php echo devlog_get_logo(); ?>
