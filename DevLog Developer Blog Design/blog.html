@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - DevLog | Backend Developer</title>
+    <meta name="description" content="Backend development, API tasarımı, mikroservis mimarisi ve modern teknolojiler hakkında blog yazıları.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/blog-list.css">
+</head>
+<body class="dark-theme">
+    <!-- Header & Navigation -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__brand">
+                <a href="index.html" class="nav__logo">DevLog</a>
+            </div>
+            
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">Ana Sayfa</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#about" class="nav__link">Hakkımda</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#experience" class="nav__link">Tecrübeler</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#skills" class="nav__link">Yetenekler</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="blog.html" class="nav__link active">Blog</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#contact" class="nav__link">İletişim</a>
+                    </li>
+                </ul>
+                
+                <div class="nav__close" id="nav-close">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            
+            <div class="nav__actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Tema değiştir">
+                    <i class="fas fa-sun"></i>
+                </button>
+                
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <!-- Blog Header -->
+        <section class="blog-header section">
+            <div class="container">
+                <div class="blog-header__content">
+                    <nav class="breadcrumb">
+                        <a href="index.html" class="breadcrumb__link">Ana Sayfa</a>
+                        <span class="breadcrumb__separator">/</span>
+                        <span class="breadcrumb__current">Blog</span>
+                    </nav>
+                    
+                    <h1 class="blog-header__title">Blog Yazıları</h1>
+                    <p class="blog-header__description">
+                        Backend development, API tasarımı, mikroservis mimarisi ve modern teknolojiler 
+                        hakkında güncel yazılar ve deneyimlerim.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Filters -->
+        <section class="blog-filters section-sm">
+            <div class="container">
+                <div class="filters">
+                    <div class="filters__search">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Yazılarda ara..." class="search-input">
+                        </div>
+                    </div>
+                    
+                    <div class="filters__categories">
+                        <button class="filter-btn active" data-filter="all">Tümü</button>
+                        <button class="filter-btn" data-filter="api">API Design</button>
+                        <button class="filter-btn" data-filter="architecture">Architecture</button>
+                        <button class="filter-btn" data-filter="database">Database</button>
+                        <button class="filter-btn" data-filter="security">Security</button>
+                        <button class="filter-btn" data-filter="devops">DevOps</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Posts -->
+        <section class="blog-posts section">
+            <div class="container">
+                <div class="blog-grid">
+                    <!-- Featured Post -->
+                    <article class="blog-post featured" data-category="api">
+                        <div class="blog-post__image">
+                            <img src="https://via.placeholder.com/600x350/333/fff?text=Featured+API+Design" alt="RESTful API Tasarımında En İyi Pratikler">
+                            <div class="blog-post__category">API Design</div>
+                            <div class="blog-post__featured">Öne Çıkan</div>
+                        </div>
+                        
+                        <div class="blog-post__content">
+                            <div class="blog-post__meta">
+                                <span class="blog-post__date">
+                                    <i class="fas fa-calendar"></i>
+                                    15 Mart 2024
+                                </span>
+                                <span class="blog-post__read-time">
+                                    <i class="fas fa-clock"></i>
+                                    5 dk okuma
+                                </span>
+                                <span class="blog-post__views">
+                                    <i class="fas fa-eye"></i>
+                                    1,250 görüntüleme
+                                </span>
+                            </div>
+                            
+                            <h2 class="blog-post__title">
+                                <a href="blog-detail.html">RESTful API Tasarımında En İyi Pratikler</a>
+                            </h2>
+                            
+                            <p class="blog-post__excerpt">
+                                Modern web uygulamalarında RESTful API tasarımının önemi ve uygulanması gereken 
+                                en iyi pratikler hakkında detaylı bir rehber. HTTP metodları, status kodları, 
+                                endpoint tasarımı ve güvenlik konularını ele alıyoruz.
+                            </p>
+                            
+                            <div class="blog-post__tags">
+                                <span class="tag">REST</span>
+                                <span class="tag">API</span>
+                                <span class="tag">Backend</span>
+                                <span class="tag">HTTP</span>
+                            </div>
+                            
+                            <div class="blog-post__footer">
+                                <div class="blog-post__author">
+                                    <img src="https://i.hizliresim.com/dow4vc6.jpeg" alt="Yazar" class="author-avatar">
+                                    <span class="author-name">DevLog</span>
+                                </div>
+                                
+                                <a href="blog-detail.html" class="read-more-btn">
+                                    Devamını Oku
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Regular Posts -->
+                    <article class="blog-post" data-category="architecture">
+                        <div class="blog-post__image">
+                            <img src="https://via.placeholder.com/400x250/333/fff?text=Microservices" alt="Mikroservis Mimarisine Geçiş">
+                            <div class="blog-post__category">Architecture</div>
+                        </div>
+                        
+                        <div class="blog-post__content">
+                            <div class="blog-post__meta">
+                                <span class="blog-post__date">
+                                    <i class="fas fa-calendar"></i>
+                                    8 Mart 2024
+                                </span>
+                                <span class="blog-post__read-time">
+                                    <i class="fas fa-clock"></i>
+                                    8 dk okuma
+                                </span>
+                            </div>
+                            
+                            <h3 class="blog-post__title">
+                                <a href="blog-detail.html">Mikroservis Mimarisine Geçiş Süreci</a>
+                            </h3>
+                            
+                            <p class="blog-post__excerpt">
+                                Monolitik uygulamalardan mikroservis mimarisine geçiş sürecinde karşılaşılan 
+                                zorluklar ve çözüm önerileri.
+                            </p>
+                            
+                            <div class="blog-post__tags">
+                                <span class="tag">Microservices</span>
+                                <span class="tag">Architecture</span>
+                                <span class="tag">Scalability</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-post" data-category="database">
+                        <div class="blog-post__image">
+                            <img src="https://via.placeholder.com/400x250/333/fff?text=Database" alt="Veritabanı Optimizasyonu">
+                            <div class="blog-post__category">Database</div>
+                        </div>
+                        
+                        <div class="blog-post__content">
+                            <div class="blog-post__meta">
+                                <span class="blog-post__date">
+                                    <i class="fas fa-calendar"></i>
+                                    1 Mart 2024
+                                </span>
+                                <span class="blog-post__read-time">
+                                    <i class="fas fa-clock"></i>
+                                    6 dk okuma
+                                </span>
+                            </div>
+                            
+                            <h3 class="blog-post__title">
+                                <a href="blog-detail.html">Veritabanı Performans Optimizasyonu</a>
+                            </h3>
+                            
+                            <p class="blog-post__excerpt">
+                                Büyük veri setleri ile çalışırken veritabanı performansını artırmak için 
+                                kullanabileceğiniz teknikler ve stratejiler.
+                            </p>
+                            
+                            <div class="blog-post__tags">
+                                <span class="tag">Database</span>
+                                <span class="tag">Performance</span>
+                                <span class="tag">Optimization</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-post" data-category="security">
+                        <div class="blog-post__image">
+                            <img src="https://via.placeholder.com/400x250/333/fff?text=Security" alt="API Güvenliği">
+                            <div class="blog-post__category">Security</div>
+                        </div>
+                        
+                        <div class="blog-post__content">
+                            <div class="blog-post__meta">
+                                <span class="blog-post__date">
+                                    <i class="fas fa-calendar"></i>
+                                    22 Şubat 2024
+                                </span>
+                                <span class="blog-post__read-time">
+                                    <i class="fas fa-clock"></i>
+                                    7 dk okuma
+                                </span>
+                            </div>
+                            
+                            <h3 class="blog-post__title">
+                                <a href="blog-detail.html">API Güvenliği: JWT ve OAuth 2.0</a>
+                            </h3>
+                            
+                            <p class="blog-post__excerpt">
+                                Modern web uygulamalarında API güvenliğini sağlamak için JWT ve OAuth 2.0 
+                                protokollerinin doğru kullanımı.
+                            </p>
+                            
+                            <div class="blog-post__tags">
+                                <span class="tag">Security</span>
+                                <span class="tag">JWT</span>
+                                <span class="tag">OAuth</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-post" data-category="devops">
+                        <div class="blog-post__image">
+                            <img src="https://via.placeholder.com/400x250/333/fff?text=Docker" alt="Docker Best Practices">
+                            <div class="blog-post__category">DevOps</div>
+                        </div>
+                        
+                        <div class="blog-post__content">
+                            <div class="blog-post__meta">
+                                <span class="blog-post__date">
+                                    <i class="fas fa-calendar"></i>
+                                    15 Şubat 2024
+                                </span>
+                                <span class="blog-post__read-time">
+                                    <i class="fas fa-clock"></i>
+                                    9 dk okuma
+                                </span>
+                            </div>
+                            
+                            <h3 class="blog-post__title">
+                                <a href="blog-detail.html">Docker ile Geliştirme Ortamı Kurulumu</a>
+                            </h3>
+                            
+                            <p class="blog-post__excerpt">
+                                Docker kullanarak tutarlı ve taşınabilir geliştirme ortamları oluşturma 
+                                ve en iyi pratiklerin uygulanması.
+                            </p>
+                            
+                            <div class="blog-post__tags">
+                                <span class="tag">Docker</span>
+                                <span class="tag">DevOps</span>
+                                <span class="tag">Development</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-post" data-category="api">
+                        <div class="blog-post__image">
+                            <img src="https://via.placeholder.com/400x250/333/fff?text=GraphQL" alt="GraphQL vs REST">
+                            <div class="blog-post__category">API Design</div>
+                        </div>
+                        
+                        <div class="blog-post__content">
+                            <div class="blog-post__meta">
+                                <span class="blog-post__date">
+                                    <i class="fas fa-calendar"></i>
+                                    5 Şubat 2024
+                                </span>
+                                <span class="blog-post__read-time">
+                                    <i class="fas fa-clock"></i>
+                                    10 dk okuma
+                                </span>
+                            </div>
+                            
+                            <h3 class="blog-post__title">
+                                <a href="blog-detail.html">GraphQL vs REST: Hangi Durumlarda Hangisi?</a>
+                            </h3>
+                            
+                            <p class="blog-post__excerpt">
+                                GraphQL ve REST API'lerin avantaj ve dezavantajlarını karşılaştırarak, 
+                                hangi durumlarda hangisinin kullanılması gerektiğini inceliyoruz.
+                            </p>
+                            
+                            <div class="blog-post__tags">
+                                <span class="tag">GraphQL</span>
+                                <span class="tag">REST</span>
+                                <span class="tag">API</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="pagination__btn pagination__btn--prev" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                        Önceki
+                    </button>
+                    
+                    <div class="pagination__numbers">
+                        <button class="pagination__number active">1</button>
+                        <button class="pagination__number">2</button>
+                        <button class="pagination__number">3</button>
+                        <span class="pagination__dots">...</span>
+                        <button class="pagination__number">8</button>
+                    </div>
+                    
+                    <button class="pagination__btn pagination__btn--next">
+                        Sonraki
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <a href="index.html" class="footer__logo">DevLog</a>
+                    <p class="footer__description">
+                        Backend development ve modern teknolojiler üzerine yazılar.
+                    </p>
+                </div>
+                
+                <div class="footer__links">
+                    <div class="footer__group">
+                        <h3 class="footer__title">Sayfalar</h3>
+                        <ul class="footer__list">
+                            <li><a href="index.html" class="footer__link">Ana Sayfa</a></li>
+                            <li><a href="index.html#about" class="footer__link">Hakkımda</a></li>
+                            <li><a href="index.html#experience" class="footer__link">Tecrübeler</a></li>
+                            <li><a href="index.html#skills" class="footer__link">Yetenekler</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__group">
+                        <h3 class="footer__title">İçerik</h3>
+                        <ul class="footer__list">
+                            <li><a href="blog.html" class="footer__link">Blog</a></li>
+                            <li><a href="page.html" class="footer__link">Projeler</a></li>
+                            <li><a href="page.html" class="footer__link">Makaleler</a></li>
+                            <li><a href="page.html" class="footer__link">Kaynaklar</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__group">
+                        <h3 class="footer__title">İletişim</h3>
+                        <ul class="footer__list">
+                            <li><a href="index.html#contact" class="footer__link">İletişim</a></li>
+                            <li><a href="#" class="footer__link">GitHub</a></li>
+                            <li><a href="#" class="footer__link">LinkedIn</a></li>
+                            <li><a href="#" class="footer__link">Twitter</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copy">
+                    &copy; 2024 DevLog. Tüm hakları saklıdır.
+                </p>
+                
+                <div class="footer__socials">
+                    <a href="#" class="footer__social" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="footer__social" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="footer__social" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="footer__social" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+    <script src="js/blog-list.js"></script>
+</body>
+</html>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeler - DevLog</title>
+    <meta name="description" content="Geliştirdiğim projeler, açık kaynak katkılarım ve teknoloji alanındaki çalışmalarım.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/page.css">
+</head>
+<body class="dark-theme">
+    <!-- Header & Navigation -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__brand">
+                <a href="index.html" class="nav__logo">DevLog</a>
+            </div>
+            
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">Ana Sayfa</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#about" class="nav__link">Hakkımda</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#experience" class="nav__link">Tecrübeler</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#skills" class="nav__link">Yetenekler</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="blog.html" class="nav__link">Blog</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#contact" class="nav__link">İletişim</a>
+                    </li>
+                </ul>
+                
+                <div class="nav__close" id="nav-close">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            
+            <div class="nav__actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Tema değiştir">
+                    <i class="fas fa-sun"></i>
+                </button>
+                
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <!-- Page Header -->
+        <section class="page-header section">
+            <div class="container">
+                <div class="page-header__content">
+                    <nav class="breadcrumb">
+                        <a href="index.html" class="breadcrumb__link">Ana Sayfa</a>
+                        <span class="breadcrumb__separator">/</span>
+                        <span class="breadcrumb__current">Projeler</span>
+                    </nav>
+                    
+                    <h1 class="page-title">Projeler</h1>
+                    <p class="page-description">
+                        Geliştirdiğim projeler, açık kaynak katkılarım ve teknoloji alanındaki çalışmalarım. 
+                        Her proje, yeni teknolojileri öğrenme ve deneyim kazanma yolculuğumun bir parçası.
+                    </p>
+                    
+                    <div class="page-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">15+</span>
+                            <span class="stat-label">Proje</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Teknoloji</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Açık Kaynak</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter & Search -->
+        <section class="page-filters section">
+            <div class="container">
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label class="filter-label">Kategori:</label>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all">
+                                <i class="fas fa-th"></i>
+                                Tümü
+                            </button>
+                            <button class="filter-btn" data-filter="web-app">
+                                <i class="fas fa-globe"></i>
+                                Web Uygulaması
+                            </button>
+                            <button class="filter-btn" data-filter="api">
+                                <i class="fas fa-code"></i>
+                                API & Backend
+                            </button>
+                            <button class="filter-btn" data-filter="mobile">
+                                <i class="fas fa-mobile-alt"></i>
+                                Mobil Uygulama
+                            </button>
+                            <button class="filter-btn" data-filter="open-source">
+                                <i class="fab fa-github"></i>
+                                Açık Kaynak
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" class="search-input" placeholder="Proje ara...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Grid -->
+        <section class="projects-grid section">
+            <div class="container">
+                <div class="projects-container">
+                    <!-- Project Card 1 -->
+                    <article class="project-card" data-category="web-app api">
+                        <div class="project-card__image">
+                            <img src="https://via.placeholder.com/400x250/333/fff?text=E-Commerce+API" alt="E-Commerce API" loading="lazy">
+                            <div class="project-card__overlay">
+                                <div class="project-card__actions">
+                                    <a href="#" class="action-btn" aria-label="Canlı Demo">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" aria-label="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <button class="action-btn" aria-label="Detaylar">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card__content">
+                            <div class="project-card__header">
+                                <h3 class="project-card__title">E-Commerce REST API</h3>
+                                <div class="project-card__status status-completed">
+                                    <i class="fas fa-check-circle"></i>
+                                    Tamamlandı
+                                </div>
+                            </div>
+                            
+                            <p class="project-card__description">
+                                Node.js ve Express.js kullanarak geliştirdiğim kapsamlı e-ticaret API'si. 
+                                JWT authentication, MongoDB entegrasyonu ve comprehensive testing içeriyor.
+                            </p>
+                            
+                            <div class="project-card__tech">
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">Express</span>
+                                <span class="tech-tag">MongoDB</span>
+                                <span class="tech-tag">JWT</span>
+                            </div>
+                            
+                            <div class="project-card__meta">
+                                <span class="project-date">
+                                    <i class="fas fa-calendar"></i>
+                                    Mart 2024
+                                </span>
+                                <span class="project-github">
+                                    <i class="fab fa-github"></i>
+                                    <span class="github-stats">127 ⭐</span>
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project Card 2 -->
+                    <article class="project-card" data-category="web-app">
+                        <div class="project-card__image">
+                            <img src="https://via.placeholder.com/400x250/333/fff?text=Task+Manager" alt="Task Manager" loading="lazy">
+                            <div class="project-card__overlay">
+                                <div class="project-card__actions">
+                                    <a href="#" class="action-btn" aria-label="Canlı Demo">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" aria-label="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <button class="action-btn" aria-label="Detaylar">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card__content">
+                            <div class="project-card__header">
+                                <h3 class="project-card__title">Kanban Task Manager</h3>
+                                <div class="project-card__status status-active">
+                                    <i class="fas fa-clock"></i>
+                                    Geliştiriliyor
+                                </div>
+                            </div>
+                            
+                            <p class="project-card__description">
+                                React ve TypeScript ile geliştirilen modern task management uygulaması. 
+                                Drag & drop, real-time updates ve team collaboration özellikleri.
+                            </p>
+                            
+                            <div class="project-card__tech">
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">TypeScript</span>
+                                <span class="tech-tag">Socket.io</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                            </div>
+                            
+                            <div class="project-card__meta">
+                                <span class="project-date">
+                                    <i class="fas fa-calendar"></i>
+                                    Şubat 2024
+                                </span>
+                                <span class="project-progress">
+                                    <i class="fas fa-chart-line"></i>
+                                    %75 Tamamlandı
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project Card 3 -->
+                    <article class="project-card" data-category="open-source api">
+                        <div class="project-card__image">
+                            <img src="https://via.placeholder.com/400x250/333/fff?text=Logger+Library" alt="Logger Library" loading="lazy">
+                            <div class="project-card__overlay">
+                                <div class="project-card__actions">
+                                    <a href="#" class="action-btn" aria-label="NPM">
+                                        <i class="fab fa-npm"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" aria-label="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <button class="action-btn" aria-label="Detaylar">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card__content">
+                            <div class="project-card__header">
+                                <h3 class="project-card__title">Advanced Logger</h3>
+                                <div class="project-card__status status-completed">
+                                    <i class="fas fa-check-circle"></i>
+                                    Yayınlandı
+                                </div>
+                            </div>
+                            
+                            <p class="project-card__description">
+                                Node.js için geliştirilmiş advanced logging kütüphanesi. 
+                                Multiple transports, log levels ve custom formatters içeren açık kaynak proje.
+                            </p>
+                            
+                            <div class="project-card__tech">
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">TypeScript</span>
+                                <span class="tech-tag">Jest</span>
+                                <span class="tech-tag">NPM</span>
+                            </div>
+                            
+                            <div class="project-card__meta">
+                                <span class="project-date">
+                                    <i class="fas fa-calendar"></i>
+                                    Ocak 2024
+                                </span>
+                                <span class="project-downloads">
+                                    <i class="fas fa-download"></i>
+                                    2.3k İndirme
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project Card 4 -->
+                    <article class="project-card" data-category="mobile">
+                        <div class="project-card__image">
+                            <img src="https://via.placeholder.com/400x250/333/fff?text=Weather+App" alt="Weather App" loading="lazy">
+                            <div class="project-card__overlay">
+                                <div class="project-card__actions">
+                                    <a href="#" class="action-btn" aria-label="App Store">
+                                        <i class="fab fa-apple"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" aria-label="Play Store">
+                                        <i class="fab fa-google-play"></i>
+                                    </a>
+                                    <button class="action-btn" aria-label="Detaylar">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card__content">
+                            <div class="project-card__header">
+                                <h3 class="project-card__title">Weather Forecast App</h3>
+                                <div class="project-card__status status-completed">
+                                    <i class="fas fa-check-circle"></i>
+                                    Yayınlandı
+                                </div>
+                            </div>
+                            
+                            <p class="project-card__description">
+                                React Native ile geliştirilen modern hava durumu uygulaması. 
+                                Real-time weather data, 7-day forecast ve location-based services.
+                            </p>
+                            
+                            <div class="project-card__tech">
+                                <span class="tech-tag">React Native</span>
+                                <span class="tech-tag">Redux</span>
+                                <span class="tech-tag">API Integration</span>
+                                <span class="tech-tag">Maps</span>
+                            </div>
+                            
+                            <div class="project-card__meta">
+                                <span class="project-date">
+                                    <i class="fas fa-calendar"></i>
+                                    Aralık 2023
+                                </span>
+                                <span class="project-rating">
+                                    <i class="fas fa-star"></i>
+                                    4.8 (152 değerlendirme)
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project Card 5 -->
+                    <article class="project-card" data-category="web-app">
+                        <div class="project-card__image">
+                            <img src="https://via.placeholder.com/400x250/333/fff?text=Blog+Platform" alt="Blog Platform" loading="lazy">
+                            <div class="project-card__overlay">
+                                <div class="project-card__actions">
+                                    <a href="#" class="action-btn" aria-label="Canlı Demo">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" aria-label="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <button class="action-btn" aria-label="Detaylar">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card__content">
+                            <div class="project-card__header">
+                                <h3 class="project-card__title">Modern Blog Platform</h3>
+                                <div class="project-card__status status-completed">
+                                    <i class="fas fa-check-circle"></i>
+                                    Tamamlandı
+                                </div>
+                            </div>
+                            
+                            <p class="project-card__description">
+                                Next.js ve Prisma ile geliştirilen full-stack blog platformu. 
+                                CMS özellikleri, SEO optimizasyonu ve responsive design.
+                            </p>
+                            
+                            <div class="project-card__tech">
+                                <span class="tech-tag">Next.js</span>
+                                <span class="tech-tag">Prisma</span>
+                                <span class="tech-tag">TailwindCSS</span>
+                                <span class="tech-tag">Vercel</span>
+                            </div>
+                            
+                            <div class="project-card__meta">
+                                <span class="project-date">
+                                    <i class="fas fa-calendar"></i>
+                                    Kasım 2023
+                                </span>
+                                <span class="project-github">
+                                    <i class="fab fa-github"></i>
+                                    <span class="github-stats">89 ⭐</span>
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project Card 6 -->
+                    <article class="project-card" data-category="api open-source">
+                        <div class="project-card__image">
+                            <img src="https://via.placeholder.com/400x250/333/fff?text=GraphQL+Server" alt="GraphQL Server" loading="lazy">
+                            <div class="project-card__overlay">
+                                <div class="project-card__actions">
+                                    <a href="#" class="action-btn" aria-label="Documentation">
+                                        <i class="fas fa-book"></i>
+                                    </a>
+                                    <a href="#" class="action-btn" aria-label="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <button class="action-btn" aria-label="Detaylar">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-card__content">
+                            <div class="project-card__header">
+                                <h3 class="project-card__title">GraphQL Boilerplate</h3>
+                                <div class="project-card__status status-active">
+                                    <i class="fas fa-clock"></i>
+                                    Güncelleniyor
+                                </div>
+                            </div>
+                            
+                            <p class="project-card__description">
+                                Production-ready GraphQL server boilerplate. Authentication, authorization, 
+                                subscriptions ve comprehensive testing setup içeren açık kaynak proje.
+                            </p>
+                            
+                            <div class="project-card__tech">
+                                <span class="tech-tag">GraphQL</span>
+                                <span class="tech-tag">Apollo Server</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Docker</span>
+                            </div>
+                            
+                            <div class="project-card__meta">
+                                <span class="project-date">
+                                    <i class="fas fa-calendar"></i>
+                                    Ekim 2023
+                                </span>
+                                <span class="project-contributors">
+                                    <i class="fas fa-users"></i>
+                                    8 Katkıda bulunan
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="load-more-container">
+                    <button class="load-more-btn">
+                        <i class="fas fa-plus"></i>
+                        Daha Fazla Proje Yükle
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="page-skills section">
+            <div class="container">
+                <h2 class="section__title">Kullandığım Teknolojiler</h2>
+                <p class="section__description">
+                    Projelerimde kullandığım başlıca teknolojiler ve araçlar
+                </p>
+                
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <div class="skill-category__header">
+                            <i class="fas fa-server"></i>
+                            <h3>Backend</h3>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Express.js</span>
+                            <span class="skill-tag">GraphQL</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Django</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <div class="skill-category__header">
+                            <i class="fas fa-database"></i>
+                            <h3>Database</h3>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">MongoDB</span>
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">Redis</span>
+                            <span class="skill-tag">MySQL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <div class="skill-category__header">
+                            <i class="fas fa-desktop"></i>
+                            <h3>Frontend</h3>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Next.js</span>
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">Vue.js</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <div class="skill-category__header">
+                            <i class="fas fa-tools"></i>
+                            <h3>DevOps</h3>
+                        </div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">AWS</span>
+                            <span class="skill-tag">CI/CD</span>
+                            <span class="skill-tag">Kubernetes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <a href="index.html" class="footer__logo">DevLog</a>
+                    <p class="footer__description">
+                        Backend development ve modern teknolojiler üzerine yazılar.
+                    </p>
+                </div>
+                
+                <div class="footer__links">
+                    <div class="footer__group">
+                        <h3 class="footer__title">Sayfalar</h3>
+                        <ul class="footer__list">
+                            <li><a href="index.html" class="footer__link">Ana Sayfa</a></li>
+                            <li><a href="index.html#about" class="footer__link">Hakkımda</a></li>
+                            <li><a href="index.html#experience" class="footer__link">Tecrübeler</a></li>
+                            <li><a href="index.html#skills" class="footer__link">Yetenekler</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__group">
+                        <h3 class="footer__title">İçerik</h3>
+                        <ul class="footer__list">
+                            <li><a href="blog.html" class="footer__link">Blog</a></li>
+                            <li><a href="page.html" class="footer__link">Projeler</a></li>
+                            <li><a href="page.html" class="footer__link">Makaleler</a></li>
+                            <li><a href="page.html" class="footer__link">Kaynaklar</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__group">
+                        <h3 class="footer__title">İletişim</h3>
+                        <ul class="footer__list">
+                            <li><a href="index.html#contact" class="footer__link">İletişim</a></li>
+                            <li><a href="#" class="footer__link">GitHub</a></li>
+                            <li><a href="#" class="footer__link">LinkedIn</a></li>
+                            <li><a href="#" class="footer__link">Twitter</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copy">
+                    &copy; 2024 DevLog. Tüm hakları saklıdır.
+                </p>
+                
+                <div class="footer__socials">
+                    <a href="#" class="footer__social" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="footer__social" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="footer__social" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="footer__social" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+    <script src="js/page.js"></script>
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESTful API Tasarımında En İyi Pratikler - DevLog</title>
+    <meta name="description" content="Modern web uygulamalarında RESTful API tasarımının önemi ve uygulanması gereken en iyi pratikler hakkında detaylı rehber.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/blog-detail.css">
+</head>
+<body class="dark-theme">
+    <!-- Header & Navigation -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__brand">
+                <a href="index.html" class="nav__logo">DevLog</a>
+            </div>
+            
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">Ana Sayfa</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#about" class="nav__link">Hakkımda</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#experience" class="nav__link">Tecrübeler</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#skills" class="nav__link">Yetenekler</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="blog.html" class="nav__link">Blog</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#contact" class="nav__link">İletişim</a>
+                    </li>
+                </ul>
+                
+                <div class="nav__close" id="nav-close">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            
+            <div class="nav__actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Tema değiştir">
+                    <i class="fas fa-sun"></i>
+                </button>
+                
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <!-- Article Header -->
+        <section class="article-header section">
+            <div class="container">
+                <div class="article-header__content">
+                    <nav class="breadcrumb">
+                        <a href="index.html" class="breadcrumb__link">Ana Sayfa</a>
+                        <span class="breadcrumb__separator">/</span>
+                        <a href="blog.html" class="breadcrumb__link">Blog</a>
+                        <span class="breadcrumb__separator">/</span>
+                        <span class="breadcrumb__current">RESTful API Tasarımı</span>
+                    </nav>
+                    
+                    <div class="article-category">
+                        <span class="category-tag">API Design</span>
+                    </div>
+                    
+                    <h1 class="article-title">RESTful API Tasarımında En İyi Pratikler</h1>
+                    
+                    <div class="article-meta">
+                        <div class="article-author">
+                            <img src="https://i.hizliresim.com/dow4vc6.jpeg" alt="DevLog" class="author-avatar">
+                            <div class="author-info">
+                                <span class="author-name">DevLog</span>
+                                <span class="author-role">Backend Developer</span>
+                            </div>
+                        </div>
+                        
+                        <div class="article-stats">
+                            <span class="article-date">
+                                <i class="fas fa-calendar"></i>
+                                15 Mart 2024
+                            </span>
+                            <span class="article-read-time">
+                                <i class="fas fa-clock"></i>
+                                5 dk okuma
+                            </span>
+                            <span class="article-views">
+                                <i class="fas fa-eye"></i>
+                                1,250 görüntüleme
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="article-tags">
+                        <span class="tag">REST</span>
+                        <span class="tag">API</span>
+                        <span class="tag">Backend</span>
+                        <span class="tag">HTTP</span>
+                        <span class="tag">Web Development</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Article Content -->
+        <section class="article-content section">
+            <div class="container">
+                <div class="article-layout">
+                    <!-- Table of Contents -->
+                    <aside class="table-of-contents">
+                        <div class="toc-sticky">
+                            <h3 class="toc-title">İçindekiler</h3>
+                            <ul class="toc-list">
+                                <li><a href="#introduction" class="toc-link">Giriş</a></li>
+                                <li><a href="#rest-principles" class="toc-link">REST Prensipleri</a></li>
+                                <li><a href="#http-methods" class="toc-link">HTTP Metodları</a></li>
+                                <li><a href="#status-codes" class="toc-link">Status Kodları</a></li>
+                                <li><a href="#endpoint-design" class="toc-link">Endpoint Tasarımı</a></li>
+                                <li><a href="#versioning" class="toc-link">API Versiyonlama</a></li>
+                                <li><a href="#security" class="toc-link">Güvenlik</a></li>
+                                <li><a href="#conclusion" class="toc-link">Sonuç</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+
+                    <!-- Article Body -->
+                    <article class="article-body">
+                        <div class="article-featured-image">
+                            <img src="https://via.placeholder.com/800x400/333/fff?text=RESTful+API+Design" alt="RESTful API Tasarımı">
+                        </div>
+
+                        <div class="article-text">
+                            <h2 id="introduction">Giriş</h2>
+                            <p>
+                                Modern web uygulamalarında API tasarımı, uygulamanın başarısını doğrudan etkileyen 
+                                kritik bir faktördür. RESTful API'ler, basitlikleri ve standartlaşmış yapıları 
+                                sayesinde en popüler API mimarisi haline gelmiştir.
+                            </p>
+                            
+                            <p>
+                                Bu yazıda, REST API tasarımında dikkat edilmesi gereken en önemli noktaları, 
+                                yaygın hataları ve en iyi pratikleri detaylı bir şekilde inceleyeceğiz.
+                            </p>
+
+                            <div class="info-box">
+                                <i class="fas fa-info-circle"></i>
+                                <div>
+                                    <strong>Not:</strong> Bu rehber, orta ve ileri seviye backend geliştiriciler 
+                                    için hazırlanmıştır. Temel HTTP ve web geliştirme bilgisi varsayılmaktadır.
+                                </div>
+                            </div>
+
+                            <h2 id="rest-principles">REST Prensipleri</h2>
+                            <p>
+                                REST (Representational State Transfer), Roy Fielding tarafından 2000 yılında 
+                                tanımlanan bir mimari stildir. REST'in altı temel prensibi vardır:
+                            </p>
+
+                            <ol>
+                                <li><strong>Client-Server:</strong> İstemci ve sunucu birbirinden bağımsız olmalıdır</li>
+                                <li><strong>Stateless:</strong> Her istek, ihtiyaç duyduğu tüm bilgiyi içermelidir</li>
+                                <li><strong>Cacheable:</strong> Yanıtlar önbelleğe alınabilir olmalıdır</li>
+                                <li><strong>Uniform Interface:</strong> Tutarlı arayüz kullanılmalıdır</li>
+                                <li><strong>Layered System:</strong> Katmanlı sistem mimarisi desteklenmelidir</li>
+                                <li><strong>Code on Demand:</strong> İsteğe bağlı kod indirimi (opsiyonel)</li>
+                            </ol>
+
+                            <h2 id="http-methods">HTTP Metodları</h2>
+                            <p>
+                                RESTful API'lerde HTTP metodları, gerçekleştirilmek istenen işlemin türünü belirtir. 
+                                Her metodun kendine özgü anlamı ve kullanım alanı vardır:
+                            </p>
+
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-language">HTTP Methods</span>
+                                    <button class="copy-btn" data-copy="http-methods">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <pre><code id="http-methods">GET    /api/users          # Tüm kullanıcıları listele
+GET    /api/users/123      # ID'si 123 olan kullanıcıyı getir
+POST   /api/users          # Yeni kullanıcı oluştur
+PUT    /api/users/123      # ID'si 123 olan kullanıcıyı güncelle
+PATCH  /api/users/123      # ID'si 123 olan kullanıcıyı kısmen güncelle
+DELETE /api/users/123      # ID'si 123 olan kullanıcıyı sil</code></pre>
+                            </div>
+
+                            <h3>GET Metodu</h3>
+                            <p>
+                                GET metodu, sunucudan veri almak için kullanılır. Bu metod <strong>idempotent</strong> 
+                                (tekrarlanabilir) ve <strong>safe</strong> (güvenli) olmalıdır, yani sunucu 
+                                durumunda herhangi bir değişiklik yapmamalıdır.
+                            </p>
+
+                            <h3>POST Metodu</h3>
+                            <p>
+                                POST metodu, yeni kaynak oluşturmak için kullanılır. Bu metod ne idempotent 
+                                ne de safe'dir, çünkü her çağrıda yeni bir kaynak oluşturur.
+                            </p>
+
+                            <h2 id="status-codes">HTTP Status Kodları</h2>
+                            <p>
+                                Doğru HTTP status kodlarının kullanımı, API'nin kullanılabilirliği açısından 
+                                kritik öneme sahiptir. İşte en sık kullanılan status kodları:
+                            </p>
+
+                            <div class="status-codes-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Kod</th>
+                                            <th>Anlamı</th>
+                                            <th>Kullanım Alanı</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>200</code></td>
+                                            <td>OK</td>
+                                            <td>Başarılı GET, PUT, PATCH istekleri</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>201</code></td>
+                                            <td>Created</td>
+                                            <td>Başarılı POST istekleri</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>204</code></td>
+                                            <td>No Content</td>
+                                            <td>Başarılı DELETE istekleri</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>400</code></td>
+                                            <td>Bad Request</td>
+                                            <td>Geçersiz istek formatı</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>401</code></td>
+                                            <td>Unauthorized</td>
+                                            <td>Kimlik doğrulama gerekli</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>404</code></td>
+                                            <td>Not Found</td>
+                                            <td>Kaynak bulunamadı</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>500</code></td>
+                                            <td>Internal Server Error</td>
+                                            <td>Sunucu hatası</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h2 id="endpoint-design">Endpoint Tasarımı</h2>
+                            <p>
+                                İyi tasarlanmış endpoint'ler, API'nin anlaşılırlığını ve kullanılabilirliğini 
+                                önemli ölçüde artırır. İşte temel kurallar:
+                            </p>
+
+                            <h3>Kaynak Odaklı Tasarım</h3>
+                            <p>
+                                URL'ler kaynakları (resources) temsil etmeli, fiilleri (verbs) değil. 
+                                HTTP metodları zaten eylemi belirtir.
+                            </p>
+
+                            <div class="comparison-box">
+                                <div class="good-example">
+                                    <h4><i class="fas fa-check-circle"></i> İyi Örnekler</h4>
+                                    <ul>
+                                        <li><code>GET /api/users</code></li>
+                                        <li><code>POST /api/products</code></li>
+                                        <li><code>PUT /api/orders/123</code></li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bad-example">
+                                    <h4><i class="fas fa-times-circle"></i> Kötü Örnekler</h4>
+                                    <ul>
+                                        <li><code>GET /api/getUsers</code></li>
+                                        <li><code>POST /api/createProduct</code></li>
+                                        <li><code>PUT /api/updateOrder/123</code></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h3>Hiyerarşik İlişkiler</h3>
+                            <p>
+                                Kaynaklar arasındaki ilişkileri URL yapısında göstermek, API'yi daha anlaşılır kılar:
+                            </p>
+
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-language">URL Hierarchy</span>
+                                    <button class="copy-btn" data-copy="url-hierarchy">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <pre><code id="url-hierarchy">GET /api/users/123/posts           # Kullanıcının gönderileri
+GET /api/posts/456/comments        # Gönderinin yorumları
+GET /api/categories/789/products   # Kategorideki ürünler</code></pre>
+                            </div>
+
+                            <h2 id="versioning">API Versiyonlama</h2>
+                            <p>
+                                API versiyonlama, geriye dönük uyumluluğu korurken yeni özellikler eklemek 
+                                için kritik öneme sahiptir. En yaygın yaklaşımlar:
+                            </p>
+
+                            <h3>URL Path Versioning</h3>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-language">URL Versioning</span>
+                                    <button class="copy-btn" data-copy="url-versioning">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <pre><code id="url-versioning">GET /api/v1/users
+GET /api/v2/users</code></pre>
+                            </div>
+
+                            <h3>Header Versioning</h3>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-language">Header Versioning</span>
+                                    <button class="copy-btn" data-copy="header-versioning">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <pre><code id="header-versioning">GET /api/users
+Accept: application/vnd.api+json;version=1</code></pre>
+                            </div>
+
+                            <h2 id="security">Güvenlik Konuları</h2>
+                            <p>
+                                API güvenliği, modern web uygulamalarının en kritik aspectlerinden biridir. 
+                                İşte temel güvenlik önlemleri:
+                            </p>
+
+                            <h3>Kimlik Doğrulama</h3>
+                            <ul>
+                                <li><strong>JWT Token:</strong> Stateless kimlik doğrulama</li>
+                                <li><strong>OAuth 2.0:</strong> Üçüncü parti erişim kontrolü</li>
+                                <li><strong>API Keys:</strong> Basit erişim kontrolü</li>
+                            </ul>
+
+                            <h3>HTTPS Kullanımı</h3>
+                            <p>
+                                Tüm API endpoint'leri HTTPS üzerinden sunulmalıdır. Bu, veri iletiminin 
+                                şifrelenmesini ve man-in-the-middle saldırılarından korunmayı sağlar.
+                            </p>
+
+                            <div class="warning-box">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <div>
+                                    <strong>Uyarı:</strong> Asla hassas bilgileri (şifreler, API anahtarları) 
+                                    URL parametrelerinde göndermeyin. Bu bilgiler server loglarında görünebilir.
+                                </div>
+                            </div>
+
+                            <h2 id="conclusion">Sonuç</h2>
+                            <p>
+                                RESTful API tasarımı, modern web geliştirmede vazgeçilmez bir beceridir. 
+                                Bu yazıda ele aldığımız prensipler ve en iyi pratikler, hem geliştirici 
+                                deneyimini hem de API performansını önemli ölçüde iyileştirecektir.
+                            </p>
+
+                            <p>
+                                Unutmayın ki, iyi bir API tasarımı sadece teknik gereksinimleri karşılamakla 
+                                kalmaz, aynı zamanda geliştiricilerin işini kolaylaştırır ve projenizin 
+                                uzun vadeli başarısına katkıda bulunur.
+                            </p>
+
+                            <div class="article-actions">
+                                <div class="social-share">
+                                    <span class="share-label">Paylaş:</span>
+                                    <a href="#" class="share-btn twitter" aria-label="Twitter'da Paylaş">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="share-btn linkedin" aria-label="LinkedIn'de Paylaş">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                    <a href="#" class="share-btn facebook" aria-label="Facebook'ta Paylaş">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                    <a href="#" class="share-btn copy-link" aria-label="Linki Kopyala">
+                                        <i class="fas fa-link"></i>
+                                    </a>
+                                </div>
+                                
+                                <div class="article-likes">
+                                    <button class="like-btn" aria-label="Beğen">
+                                        <i class="fas fa-heart"></i>
+                                        <span class="like-count">42</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Related Posts -->
+        <section class="related-posts section">
+            <div class="container">
+                <h2 class="section__title">İlgili Yazılar</h2>
+                
+                <div class="related-grid">
+                    <article class="related-post">
+                        <div class="related-post__image">
+                            <img src="https://via.placeholder.com/300x200/333/fff?text=GraphQL" alt="GraphQL vs REST">
+                            <div class="related-post__category">API Design</div>
+                        </div>
+                        
+                        <div class="related-post__content">
+                            <h3 class="related-post__title">
+                                <a href="#">GraphQL vs REST: Hangi Durumlarda Hangisi?</a>
+                            </h3>
+                            <p class="related-post__date">5 Şubat 2024</p>
+                        </div>
+                    </article>
+
+                    <article class="related-post">
+                        <div class="related-post__image">
+                            <img src="https://via.placeholder.com/300x200/333/fff?text=Security" alt="API Güvenliği">
+                            <div class="related-post__category">Security</div>
+                        </div>
+                        
+                        <div class="related-post__content">
+                            <h3 class="related-post__title">
+                                <a href="#">API Güvenliği: JWT ve OAuth 2.0</a>
+                            </h3>
+                            <p class="related-post__date">22 Şubat 2024</p>
+                        </div>
+                    </article>
+
+                    <article class="related-post">
+                        <div class="related-post__image">
+                            <img src="https://via.placeholder.com/300x200/333/fff?text=Microservices" alt="Mikroservis Mimarisi">
+                            <div class="related-post__category">Architecture</div>
+                        </div>
+                        
+                        <div class="related-post__content">
+                            <h3 class="related-post__title">
+                                <a href="#">Mikroservis Mimarisine Geçiş Süreci</a>
+                            </h3>
+                            <p class="related-post__date">8 Mart 2024</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <a href="index.html" class="footer__logo">DevLog</a>
+                    <p class="footer__description">
+                        Backend development ve modern teknolojiler üzerine yazılar.
+                    </p>
+                </div>
+                
+                <div class="footer__links">
+                    <div class="footer__group">
+                        <h3 class="footer__title">Sayfalar</h3>
+                        <ul class="footer__list">
+                            <li><a href="index.html" class="footer__link">Ana Sayfa</a></li>
+                            <li><a href="index.html#about" class="footer__link">Hakkımda</a></li>
+                            <li><a href="index.html#experience" class="footer__link">Tecrübeler</a></li>
+                            <li><a href="index.html#skills" class="footer__link">Yetenekler</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__group">
+                        <h3 class="footer__title">İçerik</h3>
+                        <ul class="footer__list">
+                            <li><a href="blog.html" class="footer__link">Blog</a></li>
+                            <li><a href="page.html" class="footer__link">Projeler</a></li>
+                            <li><a href="page.html" class="footer__link">Makaleler</a></li>
+                            <li><a href="page.html" class="footer__link">Kaynaklar</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__group">
+                        <h3 class="footer__title">İletişim</h3>
+                        <ul class="footer__list">
+                            <li><a href="index.html#contact" class="footer__link">İletişim</a></li>
+                            <li><a href="#" class="footer__link">GitHub</a></li>
+                            <li><a href="#" class="footer__link">LinkedIn</a></li>
+                            <li><a href="#" class="footer__link">Twitter</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copy">
+                    &copy; 2024 DevLog. Tüm hakları saklıdır.
+                </p>
+                
+                <div class="footer__socials">
+                    <a href="#" class="footer__social" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="footer__social" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="footer__social" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="footer__social" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+    <script src="js/blog-detail.js"></script>
+</body>
+</html>
