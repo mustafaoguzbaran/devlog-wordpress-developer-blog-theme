@@ -796,7 +796,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 right: 2rem;
                 width: 50px;
                 height: 50px;
-                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                background: var(--primary-color);
                 color: white;
                 border: none;
                 border-radius: 50%;
@@ -806,7 +806,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 transform: translateY(20px);
                 transition: all 0.3s ease;
                 z-index: 1000;
-                box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+                box-shadow: 0 4px 15px var(--primary-light);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -819,8 +819,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             .back-to-top:hover {
+                background: var(--primary-hover);
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+                box-shadow: 0 6px 20px var(--primary-light);
             }
             
             .back-to-top i {
