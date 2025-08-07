@@ -27,22 +27,22 @@
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="#home" class="nav__link">Ana Sayfa</a>
+                        <a href="<?php echo esc_url(home_url('/#home')); ?>" class="nav__link">Ana Sayfa</a>
                     </li>
                     <li class="nav__item">
-                        <a href="#about" class="nav__link">Hakkımda</a>
+                        <a href="<?php echo esc_url(home_url('/#about')); ?>" class="nav__link">Hakkımda</a>
                     </li>
                     <li class="nav__item">
-                        <a href="#experience" class="nav__link">Tecrübeler</a>
+                        <a href="<?php echo esc_url(home_url('/#experience')); ?>" class="nav__link">Tecrübeler</a>
                     </li>
                     <li class="nav__item">
-                        <a href="#skills" class="nav__link">Yetenekler</a>
+                        <a href="<?php echo esc_url(home_url('/#skills')); ?>" class="nav__link">Yetenekler</a>
                     </li>
                     <li class="nav__item">
-                        <a href="#blog" class="nav__link">Blog</a>
+                        <a href="<?php echo esc_url(home_url('/#blog')); ?>" class="nav__link">Blog</a>
                     </li>
                     <li class="nav__item">
-                        <a href="#contact" class="nav__link">İletişim</a>
+                        <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="nav__link">İletişim</a>
                     </li>
                 </ul>
                 

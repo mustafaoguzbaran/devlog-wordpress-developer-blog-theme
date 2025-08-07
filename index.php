@@ -58,69 +58,79 @@ get_header(); ?>
     <section class="about section" id="about">
         <div class="container">
             <div class="section__header">
-                <span class="section__subtitle">Kim Olduğum</span>
-                <h2 class="section__title">Hakkımda</h2>
+                <span class="section__subtitle"><?php echo esc_html(get_theme_mod('about_subtitle', 'Kim Olduğum')); ?></span>
+                <h2 class="section__title"><?php echo esc_html(get_theme_mod('about_title', 'Hakkımda')); ?></h2>
             </div>
             
-            <div class="about__container grid">
-                <div class="about__content">
-                    <p class="about__description">
-                        <?php echo esc_html(get_theme_mod('about_description', '5+ yıllık deneyime sahip bir backend developer olarak, çeşitli sektörlerde ölçeklenebilir ve performanslı web uygulamaları geliştirdim. Modern teknolojiler ve en iyi pratikler kullanarak, karmaşık iş problemlerini basit ve etkili çözümlere dönüştürmeyi seviyorum.')); ?>
-                    </p>
-                    
-                    <p class="about__description">
-                        Sürekli öğrenme ve gelişim odaklı yaklaşımımla, yeni teknolojileri takip ediyor 
-                        ve projelerimde uyguluyorum. Takım çalışmasına değer veriyor, kod kalitesi ve 
-                        clean architecture prensiplerine odaklanıyorum.
-                    </p>
-                    
-                    <div class="about__info">
-                        <div class="about__info-item">
-                            <i class="fas fa-code"></i>
-                            <div>
-                                <h3>Clean Code</h3>
-                                <span>Okunabilir ve sürdürülebilir kod</span>
+            <div class="about__wrapper">
+                <div class="about__main grid">
+                    <div class="about__content">
+                        <div class="about__text">
+                            <h3 class="about__subtitle"><?php echo esc_html(get_theme_mod('about_job_title', 'Backend Developer')); ?></h3>
+                            <p class="about__description">
+                                <?php echo esc_html(get_theme_mod('about_description', '5+ yıllık deneyime sahip bir backend developer olarak, çeşitli sektörlerde ölçeklenebilir ve performanslı web uygulamaları geliştirdim. Modern teknolojiler ve en iyi pratikler kullanarak, karmaşık iş problemlerini basit ve etkili çözümlere dönüştürmeyi seviyorum.')); ?>
+                            </p>
+                            
+                            <p class="about__description">
+                                <?php echo esc_html(get_theme_mod('about_description_2', 'Sürekli öğrenme ve gelişim odaklı yaklaşımımla, yeni teknolojileri takip ediyor ve projelerimde uyguluyorum. Takım çalışmasına değer veriyor, kod kalitesi ve clean architecture prensiplerine odaklanıyorum.')); ?>
+                            </p>
+                            
+                            <div class="about__download">
+                                <a href="<?php echo esc_url(devlog_get_cv_download_url()); ?>" class="btn btn--primary" <?php echo get_theme_mod('about_cv_file') ? 'download' : ''; ?>>
+                                    <i class="fas fa-download"></i>
+                                    <?php echo esc_html(get_theme_mod('about_cv_text', 'CV İndir')); ?>
+                                </a>
+                                <a href="#contact" class="btn btn--outline">
+                                    <i class="fas fa-envelope"></i>
+                                    <?php echo esc_html(get_theme_mod('about_contact_text', 'İletişim')); ?>
+                                </a>
                             </div>
                         </div>
-                        
-                        <div class="about__info-item">
-                            <i class="fas fa-rocket"></i>
-                            <div>
-                                <h3>Performance</h3>
-                                <span>Hızlı ve optimize edilmiş çözümler</span>
-                            </div>
-                        </div>
-                        
-                        <div class="about__info-item">
-                            <i class="fas fa-shield-alt"></i>
-                            <div>
-                                <h3>Security</h3>
-                                <span>Güvenli uygulama geliştirme</span>
+                    </div>
+                    
+                    <div class="about__image">
+                        <div class="about__img-wrapper">
+                            <?php if (get_theme_mod('about_image')) : ?>
+                                <img src="<?php echo esc_url(get_theme_mod('about_image')); ?>" alt="About Me" class="about__img">
+                            <?php else : ?>
+                                <img src="https://i.hizliresim.com/dow4vc6.jpeg" alt="About Me" class="about__img">
+                            <?php endif; ?>
+                            <div class="about__img-overlay">
+                                <div class="about__img-content">
+                                    <i class="fas fa-code"></i>
+                                    <span><?php echo esc_html(get_theme_mod('about_overlay_text', 'Backend Developer')); ?></span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
+                <div class="about__features">
+                    <?php for ($i = 1; $i <= 3; $i++) : ?>
+                    <div class="about__feature-card">
+                        <div class="about__feature-icon">
+                            <i class="<?php echo esc_attr(get_theme_mod("about_feature_{$i}_icon", $i == 1 ? 'fas fa-code' : ($i == 2 ? 'fas fa-rocket' : 'fas fa-shield-alt'))); ?>"></i>
+                        </div>
+                        <div class="about__feature-content">
+                            <h3><?php echo esc_html(get_theme_mod("about_feature_{$i}_title", $i == 1 ? 'Clean Code' : ($i == 2 ? 'Performance' : 'Security'))); ?></h3>
+                            <p><?php echo esc_html(get_theme_mod("about_feature_{$i}_description", $i == 1 ? 'Okunabilir, sürdürülebilir ve test edilebilir kod yazımına odaklanıyorum' : ($i == 2 ? 'Optimize edilmiş, hızlı ve ölçeklenebilir backend çözümleri geliştiriyorum' : 'Güvenli API\'ler ve backend sistemleri ile veri güvenliğini sağlıyorum'))); ?></p>
+                        </div>
+                    </div>
+                    <?php endfor; ?>
+                </div>
+                
                 <div class="about__stats">
+                    <?php for ($i = 1; $i <= 4; $i++) : ?>
                     <div class="about__stat">
-                        <span class="about__stat-number">5+</span>
-                        <span class="about__stat-label">Yıl Deneyim</span>
+                        <div class="about__stat-icon">
+                            <i class="<?php echo esc_attr(get_theme_mod("about_stat_{$i}_icon", $i == 1 ? 'fas fa-calendar-alt' : ($i == 2 ? 'fas fa-project-diagram' : ($i == 3 ? 'fas fa-users' : 'fas fa-tools')))); ?>"></i>
+                        </div>
+                        <div class="about__stat-content">
+                            <span class="about__stat-number"><?php echo esc_html(get_theme_mod("about_stat_{$i}_number", $i == 1 ? '5+' : ($i == 2 ? '50+' : ($i == 3 ? '20+' : '10+')))); ?></span>
+                            <span class="about__stat-label"><?php echo esc_html(get_theme_mod("about_stat_{$i}_label", $i == 1 ? 'Yıl Deneyim' : ($i == 2 ? 'Tamamlanan Proje' : ($i == 3 ? 'Mutlu Müşteri' : 'Teknoloji')))); ?></span>
+                        </div>
                     </div>
-                    
-                    <div class="about__stat">
-                        <span class="about__stat-number">50+</span>
-                        <span class="about__stat-label">Tamamlanan Proje</span>
-                    </div>
-                    
-                    <div class="about__stat">
-                        <span class="about__stat-number">20+</span>
-                        <span class="about__stat-label">Mutlu Müşteri</span>
-                    </div>
-                    
-                    <div class="about__stat">
-                        <span class="about__stat-number">10+</span>
-                        <span class="about__stat-label">Teknoloji</span>
-                    </div>
+                    <?php endfor; ?>
                 </div>
             </div>
         </div>

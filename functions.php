@@ -430,16 +430,205 @@ function devlog_customize_register($wp_customize) {
         'priority' => 31,
     ));
     
+    // About Section Header
+    $wp_customize->add_setting('about_subtitle', array(
+        'default' => 'Kim Olduğum',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('about_subtitle', array(
+        'label' => __('About Section Subtitle', 'devlog'),
+        'section' => 'devlog_about',
+        'type' => 'text',
+    ));
+    
+    $wp_customize->add_setting('about_title', array(
+        'default' => 'Hakkımda',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('about_title', array(
+        'label' => __('About Section Title', 'devlog'),
+        'section' => 'devlog_about',
+        'type' => 'text',
+    ));
+    
+    // About Content
+    $wp_customize->add_setting('about_job_title', array(
+        'default' => 'Backend Developer',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('about_job_title', array(
+        'label' => __('Job Title', 'devlog'),
+        'section' => 'devlog_about',
+        'type' => 'text',
+    ));
+    
     $wp_customize->add_setting('about_description', array(
-        'default' => '5+ yıllık deneyime sahip bir backend developer olarak...',
+        'default' => '5+ yıllık deneyime sahip bir backend developer olarak, çeşitli sektörlerde ölçeklenebilir ve performanslı web uygulamaları geliştirdim. Modern teknolojiler ve en iyi pratikler kullanarak, karmaşık iş problemlerini basit ve etkili çözümlere dönüştürmeyi seviyorum.',
         'sanitize_callback' => 'sanitize_textarea_field',
     ));
     
     $wp_customize->add_control('about_description', array(
-        'label' => __('About Description', 'devlog'),
+        'label' => __('About Description (First Paragraph)', 'devlog'),
         'section' => 'devlog_about',
         'type' => 'textarea',
     ));
+    
+    $wp_customize->add_setting('about_description_2', array(
+        'default' => 'Sürekli öğrenme ve gelişim odaklı yaklaşımımla, yeni teknolojileri takip ediyor ve projelerimde uyguluyorum. Takım çalışmasına değer veriyor, kod kalitesi ve clean architecture prensiplerine odaklanıyorum.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+    
+    $wp_customize->add_control('about_description_2', array(
+        'label' => __('About Description (Second Paragraph)', 'devlog'),
+        'section' => 'devlog_about',
+        'type' => 'textarea',
+    ));
+    
+    // About Image
+    $wp_customize->add_setting('about_image', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'about_image', array(
+        'label' => __('About Image', 'devlog'),
+        'section' => 'devlog_about',
+    )));
+    
+    $wp_customize->add_setting('about_overlay_text', array(
+        'default' => 'Backend Developer',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('about_overlay_text', array(
+        'label' => __('Image Overlay Text', 'devlog'),
+        'section' => 'devlog_about',
+        'type' => 'text',
+    ));
+    
+    // CV Button Settings
+    $wp_customize->add_setting('about_cv_text', array(
+        'default' => 'CV İndir',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('about_cv_text', array(
+        'label' => __('CV Button Text', 'devlog'),
+        'section' => 'devlog_about',
+        'type' => 'text',
+    ));
+    
+    $wp_customize->add_setting('about_cv_file', array(
+        'default' => '',
+        'sanitize_callback' => 'absint',
+    ));
+    
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'about_cv_file', array(
+        'label' => __('CV File (PDF)', 'devlog'),
+        'description' => __('Upload your CV file (PDF recommended)', 'devlog'),
+        'section' => 'devlog_about',
+        'mime_type' => 'application/pdf',
+    )));
+    
+    $wp_customize->add_setting('about_cv_enable_download', array(
+        'default' => true,
+        'sanitize_callback' => 'wp_validate_boolean',
+    ));
+    
+    $wp_customize->add_control('about_cv_enable_download', array(
+        'label' => __('Enable CV Download', 'devlog'),
+        'description' => __('If disabled, button will redirect to contact section', 'devlog'),
+        'section' => 'devlog_about',
+        'type' => 'checkbox',
+    ));
+    
+    $wp_customize->add_setting('about_contact_text', array(
+        'default' => 'İletişim',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('about_contact_text', array(
+        'label' => __('Contact Button Text', 'devlog'),
+        'section' => 'devlog_about',
+        'type' => 'text',
+    ));
+    
+    // Feature Cards
+    for ($i = 1; $i <= 3; $i++) {
+        $wp_customize->add_setting("about_feature_{$i}_icon", array(
+            'default' => $i == 1 ? 'fas fa-code' : ($i == 2 ? 'fas fa-rocket' : 'fas fa-shield-alt'),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        
+        $wp_customize->add_control("about_feature_{$i}_icon", array(
+            'label' => sprintf(__('Feature %d Icon (FontAwesome Class)', 'devlog'), $i),
+            'section' => 'devlog_about',
+            'type' => 'text',
+        ));
+        
+        $wp_customize->add_setting("about_feature_{$i}_title", array(
+            'default' => $i == 1 ? 'Clean Code' : ($i == 2 ? 'Performance' : 'Security'),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        
+        $wp_customize->add_control("about_feature_{$i}_title", array(
+            'label' => sprintf(__('Feature %d Title', 'devlog'), $i),
+            'section' => 'devlog_about',
+            'type' => 'text',
+        ));
+        
+        $wp_customize->add_setting("about_feature_{$i}_description", array(
+            'default' => $i == 1 ? 'Okunabilir, sürdürülebilir ve test edilebilir kod yazımına odaklanıyorum' : 
+                        ($i == 2 ? 'Optimize edilmiş, hızlı ve ölçeklenebilir backend çözümleri geliştiriyorum' : 
+                        'Güvenli API\'ler ve backend sistemleri ile veri güvenliğini sağlıyorum'),
+            'sanitize_callback' => 'sanitize_textarea_field',
+        ));
+        
+        $wp_customize->add_control("about_feature_{$i}_description", array(
+            'label' => sprintf(__('Feature %d Description', 'devlog'), $i),
+            'section' => 'devlog_about',
+            'type' => 'textarea',
+        ));
+    }
+    
+    // Stats
+    for ($i = 1; $i <= 4; $i++) {
+        $wp_customize->add_setting("about_stat_{$i}_icon", array(
+            'default' => $i == 1 ? 'fas fa-calendar-alt' : ($i == 2 ? 'fas fa-project-diagram' : ($i == 3 ? 'fas fa-users' : 'fas fa-tools')),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        
+        $wp_customize->add_control("about_stat_{$i}_icon", array(
+            'label' => sprintf(__('Stat %d Icon (FontAwesome Class)', 'devlog'), $i),
+            'section' => 'devlog_about',
+            'type' => 'text',
+        ));
+        
+        $wp_customize->add_setting("about_stat_{$i}_number", array(
+            'default' => $i == 1 ? '5+' : ($i == 2 ? '50+' : ($i == 3 ? '20+' : '10+')),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        
+        $wp_customize->add_control("about_stat_{$i}_number", array(
+            'label' => sprintf(__('Stat %d Number', 'devlog'), $i),
+            'section' => 'devlog_about',
+            'type' => 'text',
+        ));
+        
+        $wp_customize->add_setting("about_stat_{$i}_label", array(
+            'default' => $i == 1 ? 'Yıl Deneyim' : ($i == 2 ? 'Tamamlanan Proje' : ($i == 3 ? 'Mutlu Müşteri' : 'Teknoloji')),
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+        
+        $wp_customize->add_control("about_stat_{$i}_label", array(
+            'label' => sprintf(__('Stat %d Label', 'devlog'), $i),
+            'section' => 'devlog_about',
+            'type' => 'text',
+        ));
+    }
     
     // Experience Section Settings
     $wp_customize->add_section('devlog_experience', array(
@@ -1292,13 +1481,69 @@ function devlog_create_demo_skills() {
     update_option('devlog_demo_skills_created', true);
 }
 
+/**
+ * Set Demo About Content (for testing)
+ */
+function devlog_set_demo_about_content() {
+    if (get_option('devlog_demo_about_created')) {
+        return;
+    }
+    
+    // About section defaults
+    set_theme_mod('about_subtitle', 'Kim Olduğum');
+    set_theme_mod('about_title', 'Hakkımda');
+    set_theme_mod('about_job_title', 'Full Stack Developer');
+    set_theme_mod('about_description', '7+ yıllık deneyime sahip bir full stack developer olarak, modern web teknolojileri ile ölçeklenebilir ve performanslı uygulamalar geliştiriyorum. Frontend\'den backend\'e kadar tüm süreçlerde uzmanlaşmış, kullanıcı deneyimini ön planda tutan çözümler üretiyorum.');
+    set_theme_mod('about_description_2', 'Sürekli öğrenme ve gelişim odaklı yaklaşımımla, sektördeki en son teknolojileri takip ediyor ve projelerimde uyguluyorum. Clean code prensipleri, agile metodoloji ve takım çalışmasına odaklanarak kaliteli yazılım geliştirme süreçlerini destekliyorum.');
+    set_theme_mod('about_overlay_text', 'Full Stack Developer');
+    set_theme_mod('about_cv_text', 'CV İndir');
+    set_theme_mod('about_cv_enable_download', true);
+    set_theme_mod('about_contact_text', 'İletişim Kur');
+    
+    // Feature cards
+    set_theme_mod('about_feature_1_icon', 'fas fa-code');
+    set_theme_mod('about_feature_1_title', 'Clean Code');
+    set_theme_mod('about_feature_1_description', 'Okunabilir, sürdürülebilir ve test edilebilir kod yazımına odaklanıyor, SOLID prensipleri ile geliştirme yapıyorum.');
+    
+    set_theme_mod('about_feature_2_icon', 'fas fa-rocket');
+    set_theme_mod('about_feature_2_title', 'Performance');
+    set_theme_mod('about_feature_2_description', 'Optimize edilmiş, hızlı ve ölçeklenebilir web uygulamaları geliştirme konusunda uzmanlaşmış durumdayım.');
+    
+    set_theme_mod('about_feature_3_icon', 'fas fa-shield-alt');
+    set_theme_mod('about_feature_3_title', 'Security');
+    set_theme_mod('about_feature_3_description', 'Güvenli API\'ler, authentication sistemleri ve veri koruma protokolleri ile güvenlik odaklı geliştirme yapıyorum.');
+    
+    // Stats
+    set_theme_mod('about_stat_1_icon', 'fas fa-calendar-alt');
+    set_theme_mod('about_stat_1_number', '7+');
+    set_theme_mod('about_stat_1_label', 'Yıl Deneyim');
+    
+    set_theme_mod('about_stat_2_icon', 'fas fa-project-diagram');
+    set_theme_mod('about_stat_2_number', '80+');
+    set_theme_mod('about_stat_2_label', 'Tamamlanan Proje');
+    
+    set_theme_mod('about_stat_3_icon', 'fas fa-users');
+    set_theme_mod('about_stat_3_number', '35+');
+    set_theme_mod('about_stat_3_label', 'Mutlu Müşteri');
+    
+    set_theme_mod('about_stat_4_icon', 'fas fa-tools');
+    set_theme_mod('about_stat_4_number', '15+');
+    set_theme_mod('about_stat_4_label', 'Teknoloji Stack');
+    
+    update_option('devlog_demo_about_created', true);
+}
+
 // Call demo skills function on theme activation (for testing)
 add_action('after_switch_theme', 'devlog_create_demo_skills');
+add_action('after_switch_theme', 'devlog_set_demo_about_content');
 
 // Also call it on init for immediate testing
 add_action('init', function() {
     if (!get_option('devlog_demo_skills_created')) {
         devlog_create_demo_skills();
+    }
+    if (!get_option('devlog_demo_about_created')) {
+        devlog_set_demo_about_content();
     }
 });
 
@@ -2306,4 +2551,66 @@ class DevLog_Walker_Nav_Menu extends Walker_Nav_Menu {
     function end_el(&$output, $item, $depth = 0, $args = null) {
         $output .= "</li>\n";
     }
+}
+
+/**
+ * CV Download Handler
+ */
+function devlog_handle_cv_download() {
+    if (!isset($_GET['download_cv']) || $_GET['download_cv'] !== '1') {
+        return;
+    }
+    
+    // Get CV file ID from theme mod
+    $cv_file_id = get_theme_mod('about_cv_file');
+    
+    if (!$cv_file_id) {
+        wp_die('CV file not found. Please upload a CV file in the customizer.');
+        return;
+    }
+    
+    // Get file path
+    $file_path = get_attached_file($cv_file_id);
+    $file_url = wp_get_attachment_url($cv_file_id);
+    
+    if (!$file_path || !file_exists($file_path)) {
+        wp_die('CV file not found on server.');
+        return;
+    }
+    
+    // Get file info
+    $file_info = pathinfo($file_path);
+    $filename = sanitize_file_name(get_bloginfo('name') . '_CV.' . $file_info['extension']);
+    
+    // Set headers for download
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+    header('Content-Length: ' . filesize($file_path));
+    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+    header('Pragma: public');
+    header('Expires: 0');
+    
+    // Clear output buffer
+    if (ob_get_level()) {
+        ob_end_clean();
+    }
+    
+    // Read and output file
+    readfile($file_path);
+    exit;
+}
+add_action('template_redirect', 'devlog_handle_cv_download');
+
+/**
+ * Get CV Download URL
+ */
+function devlog_get_cv_download_url() {
+    $cv_file_id = get_theme_mod('about_cv_file');
+    $cv_enabled = get_theme_mod('about_cv_enable_download', true);
+    
+    if (!$cv_enabled || !$cv_file_id) {
+        return '#contact';
+    }
+    
+    return add_query_arg('download_cv', '1', home_url('/'));
 }

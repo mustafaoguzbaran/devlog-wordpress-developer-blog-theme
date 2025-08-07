@@ -853,4 +853,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize all components
     initializeComponents();
+    
+    // ===== CV Download Handler =====
+    const cvButton = document.querySelector('.btn--primary[href*="download_cv"]');
+    if (cvButton) {
+        cvButton.addEventListener('click', function(e) {
+            console.log('CV download başlatıldı');
+            
+            // Check if it's a real download link
+            if (this.href.includes('download_cv=1')) {
+                console.log('CV dosyası indiriliyor...');
+                
+                // Optional: Show a success message
+                setTimeout(() => {
+                    if (typeof window.alert !== 'undefined') {
+                        // You can replace this with a nicer notification
+                        console.log('CV download initiated successfully');
+                    }
+                }, 100);
+            }
+        });
+    }
 });

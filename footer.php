@@ -19,16 +19,16 @@
                         <h3 class="footer__title">Sayfalar</h3>
                         <ul class="footer__list">
                             <li><a href="<?php echo esc_url(home_url('/')); ?>" class="footer__link">Ana Sayfa</a></li>
-                            <li><a href="#about" class="footer__link">Hakkımda</a></li>
-                            <li><a href="#experience" class="footer__link">Tecrübeler</a></li>
-                            <li><a href="#skills" class="footer__link">Yetenekler</a></li>
+                            <li><a href="<?php echo esc_url(home_url('/#about')); ?>" class="footer__link">Hakkımda</a></li>
+                            <li><a href="<?php echo esc_url(home_url('/#experience')); ?>" class="footer__link">Tecrübeler</a></li>
+                            <li><a href="<?php echo esc_url(home_url('/#skills')); ?>" class="footer__link">Yetenekler</a></li>
                         </ul>
                     </div>
                     
                     <div class="footer__group">
                         <h3 class="footer__title">İçerik</h3>
                         <ul class="footer__list">
-                            <li><a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" class="footer__link">Blog</a></li>
+                            <li><a href="<?php echo esc_url(home_url('/#blog')); ?>" class="footer__link">Blog</a></li>
                             <li><a href="#" class="footer__link">Projeler</a></li>
                             <li><a href="#" class="footer__link">Makaleler</a></li>
                             <li><a href="#" class="footer__link">Kaynaklar</a></li>
@@ -38,7 +38,7 @@
                     <div class="footer__group">
                         <h3 class="footer__title">İletişim</h3>
                         <ul class="footer__list">
-                            <li><a href="#contact" class="footer__link">İletişim</a></li>
+                            <li><a href="<?php echo esc_url(home_url('/#contact')); ?>" class="footer__link">İletişim</a></li>
                             <li><a href="<?php echo esc_url(get_theme_mod('social_github', '#')); ?>" class="footer__link">GitHub</a></li>
                             <li><a href="<?php echo esc_url(get_theme_mod('social_linkedin', '#')); ?>" class="footer__link">LinkedIn</a></li>
                             <li><a href="<?php echo esc_url(get_theme_mod('social_twitter', '#')); ?>" class="footer__link">Twitter</a></li>
