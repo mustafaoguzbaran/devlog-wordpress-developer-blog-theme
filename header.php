@@ -39,7 +39,11 @@
                         <a href="<?php echo esc_url(home_url('/#skills')); ?>" class="nav__link">Yetenekler</a>
                     </li>
                     <li class="nav__item">
-                        <a href="<?php echo esc_url(home_url('/#blog')); ?>" class="nav__link">Blog</a>
+                        <?php if (get_option('page_for_posts')) : ?>
+                            <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" class="nav__link">Blog</a>
+                        <?php else : ?>
+                            <a href="<?php echo esc_url(home_url('/#blog')); ?>" class="nav__link">Blog</a>
+                        <?php endif; ?>
                     </li>
                     <li class="nav__item">
                         <a href="<?php echo esc_url(home_url('/#contact')); ?>" class="nav__link">İletişim</a>

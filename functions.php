@@ -41,6 +41,9 @@ function devlog_theme_setup() {
     register_nav_menus(array(
         'primary' => __('Primary Menu', 'devlog'),
         'footer' => __('Footer Menu', 'devlog'),
+        'footer-pages' => __('Footer Pages Menu', 'devlog'),
+        'footer-content' => __('Footer Content Menu', 'devlog'),
+        'footer-contact' => __('Footer Contact Menu', 'devlog'),
     ));
 
     // Set content width
@@ -48,6 +51,11 @@ function devlog_theme_setup() {
     if (!isset($content_width)) {
         $content_width = 1200;
     }
+    
+    // Add image sizes
+    add_image_size('blog-thumbnail', 400, 250, true);
+    add_image_size('blog-medium', 600, 400, true);
+    add_image_size('blog-large', 1200, 600, true);
 }
 add_action('after_setup_theme', 'devlog_theme_setup');
 
@@ -96,6 +104,17 @@ function devlog_widgets_init() {
     ));
 }
 add_action('widgets_init', 'devlog_widgets_init');
+
+/**
+ * Add footer link CSS class
+ */
+function devlog_footer_menu_link_class($atts, $item, $args) {
+    if (in_array($args->theme_location, ['footer-pages', 'footer-content', 'footer-contact'])) {
+        $atts['class'] = 'footer__link';
+    }
+    return $atts;
+}
+add_filter('nav_menu_link_attributes', 'devlog_footer_menu_link_class', 10, 3);
 
 /**
  * Custom Logo Setup
@@ -175,8 +194,74 @@ function devlog_get_post_categories($post_id = null) {
 }
 
 /**
- * Custom Post Meta
+ * Blog Page Title and Description Functions
  */
+function devlog_get_blog_page_title() {
+    if (is_home() && !is_front_page()) {
+        $blog_page_id = get_option('page_for_posts');
+        if ($blog_page_id) {
+            return get_the_title($blog_page_id);
+        }
+        return 'Blog';
+    } elseif (is_category()) {
+        return 'Kategori: ' . single_cat_title('', false);
+    } elseif (is_tag()) {
+        return 'Etiket: ' . single_tag_title('', false);
+    } elseif (is_author()) {
+        return 'Yazar: ' . get_the_author();
+    } elseif (is_date()) {
+        if (is_year()) {
+            return get_the_date('Y') . ' Yılı Arşivi';
+        } elseif (is_month()) {
+            return get_the_date('F Y') . ' Arşivi';
+        } else {
+            return get_the_date('j F Y') . ' Arşivi';
+        }
+    } else {
+        return 'Blog';
+    }
+}
+
+function devlog_get_blog_page_description() {
+    if (is_home() && !is_front_page()) {
+        $blog_page_id = get_option('page_for_posts');
+        if ($blog_page_id) {
+            $description = get_post_field('post_content', $blog_page_id);
+            if ($description) {
+                return wp_trim_words($description, 30);
+            }
+        }
+        return 'Yazılım geliştirme, teknoloji ve kişisel deneyimlerimle ilgili yazılarım';
+    } elseif (is_category()) {
+        $category_description = category_description();
+        if ($category_description) {
+            return strip_tags($category_description);
+        }
+        return single_cat_title('', false) . ' kategorisindeki tüm yazılar';
+    } elseif (is_tag()) {
+        $tag_description = tag_description();
+        if ($tag_description) {
+            return strip_tags($tag_description);
+        }
+        return single_tag_title('', false) . ' etiketiyle ilgili yazılar';
+    } elseif (is_author()) {
+        $author_description = get_the_author_meta('description');
+        if ($author_description) {
+            return $author_description;
+        }
+        return get_the_author() . ' tarafından yazılan tüm yazılar';
+    } elseif (is_date()) {
+        if (is_year()) {
+            return get_the_date('Y') . ' yılında yayınlanan tüm yazılar';
+        } elseif (is_month()) {
+            return get_the_date('F Y') . ' ayında yayınlanan tüm yazılar';
+        } else {
+            return get_the_date('j F Y') . ' tarihinde yayınlanan yazılar';
+        }
+    } else {
+        return 'Yazılım geliştirme ve teknoloji yazıları';
+    }
+}
 function devlog_post_meta() {
     echo '<div class="blog__meta">';
     echo '<span class="blog__date">' . get_the_date('j F Y') . '</span>';
@@ -733,6 +818,49 @@ function devlog_customize_register($wp_customize) {
         'label' => __('Twitter URL', 'devlog'),
         'section' => 'devlog_contact',
         'type' => 'url',
+    ));
+    
+    // Footer Menu Titles Section
+    $wp_customize->add_section('devlog_footer_menus', array(
+        'title' => __('Footer Menu Titles', 'devlog'),
+        'priority' => 160,
+        'description' => __('Customize footer menu section titles', 'devlog'),
+    ));
+    
+    // Footer Pages Menu Title
+    $wp_customize->add_setting('footer_pages_title', array(
+        'default' => 'Sayfalar',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('footer_pages_title', array(
+        'label' => __('Pages Menu Title', 'devlog'),
+        'section' => 'devlog_footer_menus',
+        'type' => 'text',
+    ));
+    
+    // Footer Content Menu Title
+    $wp_customize->add_setting('footer_content_title', array(
+        'default' => 'İçerik',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('footer_content_title', array(
+        'label' => __('Content Menu Title', 'devlog'),
+        'section' => 'devlog_footer_menus',
+        'type' => 'text',
+    ));
+    
+    // Footer Contact Menu Title
+    $wp_customize->add_setting('footer_contact_title', array(
+        'default' => 'İletişim',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    
+    $wp_customize->add_control('footer_contact_title', array(
+        'label' => __('Contact Menu Title', 'devlog'),
+        'section' => 'devlog_footer_menus',
+        'type' => 'text',
     ));
 }
 add_action('customize_register', 'devlog_customize_register');
@@ -1873,7 +2001,7 @@ function devlog_get_skills_statistics() {
     }
     
     $stats['categories'] = $categories;
-    $stats['average_percentage'] = round($total_percentage / $stats['total_skills'], 1);
+    $stats['average_percentage'] = $stats['total_skills'] > 0 ? round($total_percentage / $stats['total_skills'], 1) : 0;
     
     return $stats;
 }
@@ -2691,4 +2819,160 @@ function devlog_get_excerpt($post_id = null, $length = 150) {
     $excerpt = substr($excerpt, 0, strrpos($excerpt, ' ')) . '...';
     
     return $excerpt;
+}
+
+/**
+ * Blog Pages Functions
+ */
+
+/**
+ * Custom pagination for blog pages
+ */
+function devlog_custom_pagination() {
+    global $wp_query;
+    
+    $current = max(1, get_query_var('paged'));
+    $total = $wp_query->max_num_pages;
+    
+    if ($total < 2) {
+        return;
+    }
+    
+    echo '<div class="blog-pagination">';
+    
+    // Previous page link
+    if ($current > 1) {
+        echo '<a href="' . get_pagenum_link($current - 1) . '" class="page-numbers prev">';
+        echo '<i class="fas fa-chevron-left"></i> Önceki';
+        echo '</a>';
+    }
+    
+    // Page numbers
+    for ($i = 1; $i <= $total; $i++) {
+        if ($i == $current) {
+            echo '<span class="page-numbers current">' . $i . '</span>';
+        } else {
+            echo '<a href="' . get_pagenum_link($i) . '" class="page-numbers">' . $i . '</a>';
+        }
+    }
+    
+    // Next page link
+    if ($current < $total) {
+        echo '<a href="' . get_pagenum_link($current + 1) . '" class="page-numbers next">';
+        echo 'Sonraki <i class="fas fa-chevron-right"></i>';
+        echo '</a>';
+    }
+    
+    echo '</div>';
+}
+
+/**
+ * Get formatted post tags
+ */
+function devlog_get_post_tags($post_id = null, $limit = 5) {
+    if (!$post_id) {
+        global $post;
+        $post_id = $post->ID;
+    }
+    
+    $tags = get_the_tags($post_id);
+    
+    if (empty($tags)) {
+        return '';
+    }
+    
+    $output = '';
+    $count = 0;
+    
+    foreach ($tags as $tag) {
+        if ($count >= $limit) break;
+        
+        $output .= '<a href="' . get_tag_link($tag->term_id) . '" class="blog-post-card__tag">';
+        $output .= esc_html($tag->name);
+        $output .= '</a>';
+        
+        $count++;
+    }
+    
+    return $output;
+}
+
+/**
+ * Get popular posts based on comments or views
+ */
+function devlog_get_popular_posts($limit = 5) {
+    // Try to get posts by view count first
+    $popular_posts = get_posts(array(
+        'numberposts' => $limit,
+        'post_status' => 'publish',
+        'meta_key' => 'post_views_count',
+        'orderby' => 'meta_value_num',
+        'order' => 'DESC'
+    ));
+    
+    // Fallback to recent posts if no view counts
+    if (empty($popular_posts)) {
+        $popular_posts = get_posts(array(
+            'numberposts' => $limit,
+            'post_status' => 'publish',
+            'orderby' => 'comment_count',
+            'order' => 'DESC'
+        ));
+    }
+    
+    // Final fallback to recent posts
+    if (empty($popular_posts)) {
+        $popular_posts = get_posts(array(
+            'numberposts' => $limit,
+            'post_status' => 'publish'
+        ));
+    }
+    
+    return $popular_posts;
+}
+
+/**
+ * Increment post view count
+ */
+function devlog_set_post_views($post_id) {
+    $count_key = 'post_views_count';
+    $count = get_post_meta($post_id, $count_key, true);
+    
+    if ($count == '') {
+        $count = 0;
+        delete_post_meta($post_id, $count_key);
+        add_post_meta($post_id, $count_key, '0');
+    } else {
+        $count++;
+        update_post_meta($post_id, $count_key, $count);
+    }
+}
+
+/**
+ * Get post view count
+ */
+function devlog_get_post_views($post_id) {
+    $count_key = 'post_views_count';
+    $count = get_post_meta($post_id, $count_key, true);
+    
+    if ($count == '') {
+        delete_post_meta($post_id, $count_key);
+        add_post_meta($post_id, $count_key, '0');
+        return "0";
+    }
+    
+    return $count;
+}
+
+/**
+ * Track post views (call on single post pages)
+ */
+function devlog_track_post_views($post_id) {
+    if (!is_single()) return;
+    if (empty($post_id)) {
+        global $post;
+        $post_id = $post->ID;
+    }
+    
+    devlog_set_post_views($post_id);
 }

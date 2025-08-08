@@ -6,7 +6,11 @@
  * @version 1.0.0
  */
 
-get_header(); ?>
+get_header(); 
+
+// Track post views
+devlog_track_post_views(get_the_ID());
+?>
 
 <main class="main">
     <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
